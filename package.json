@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A Mpvue project",
   "author": "kuangpengfei <1633397286@qq.com>",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
