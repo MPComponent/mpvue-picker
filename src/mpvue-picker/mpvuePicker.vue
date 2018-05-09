@@ -1,13 +1,13 @@
 <template>
   <div class="mpvue-picker">
+    <button type="default" @click="showPickerView">多级联动选择</button>
     <div :class="{'pickerMask':isShowMask}" @click="maskClick" catchtouchmove="true"></div>
-    <div class="mpvue-picker-content mpvue-picker-view-show">
+    <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':pickerShow}">
       <div class="mpvue-picker__hd">
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" @change="pickerChange">
-
       </picker-view>
     </div>
   </div>
@@ -17,7 +17,8 @@
 export default {
   data() {
     return {
-      isShowMask: true
+      isShowMask: true,
+      pickerShow: true
     };
   },
   methods: {
@@ -26,6 +27,15 @@ export default {
     },
     pickerCancel() {
       this.isShowMask = false;
+      this.pickerShow = false;
+    },
+    pickerConfirm() {
+      this.isShowMask = false;
+      this.pickerShow = false;
+    },
+    showPickerView() {
+      this.isShowMask = true;
+      this.pickerShow = true;
     }
   }
 };
