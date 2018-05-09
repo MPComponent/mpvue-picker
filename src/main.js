@@ -15,7 +15,7 @@ export default {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
+      navigationBarTitleText: 'mpvue-picker',
       navigationBarTextStyle: 'black'
     }
   }
