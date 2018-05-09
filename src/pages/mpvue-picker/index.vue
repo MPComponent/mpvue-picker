@@ -1,9 +1,9 @@
 <template>
-    <div class="mvpue-picker">ddd</div>
+    <div class="mvpue-picker">mpvue-picker</div>
 </template>
 
 <script>
-export default {}
+export default {};
 </script>
 
 <style>

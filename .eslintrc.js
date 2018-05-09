@@ -14,17 +14,16 @@ module.exports = {
   // https://github.com/standard/standard/blob/master/docs/RULES-en.md
   extends: 'standard',
   // required to lint *.vue files
-  plugins: [
-    'html'
-  ],
+  plugins: ['html'],
   // add your custom rules here
-  'rules': {
-    // allow paren-less arrow functions
-    'arrow-parens': 0,
+  rules: {
     // allow async-await
-    'generator-star-spacing': 0,
+    'generator-star-spacing': 'off',
     // allow debugger during development
-    'no-debugger': process.env.NODE_ENV === 'production' ? 2 : 0
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    semi: ['error', 'always'],
+    'func-call-spacing': 'off',
+    'space-before-function-paren': 'off'
   },
   globals: {
     App: true,
@@ -33,4 +32,4 @@ module.exports = {
     getApp: true,
     getPage: true
   }
-}
+};
