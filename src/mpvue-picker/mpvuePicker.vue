@@ -7,10 +7,10 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" @change="pickerChange">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValueDefault" @change="pickerChange">
         <block v-for="(n,index1) in columuNum" :key="index1">
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index2) in columuOne" :key="index2">{{item}}</div>
+            <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -28,9 +28,20 @@ export default {
     };
   },
   props: {
+    /* picker 列数 */
     columuNum: {
       type: Number,
       default: 1
+    },
+    /* picker 数值 */
+    pickerValueArray: {
+      type: Array,
+      default: []
+    },
+    /* 默认值 */
+    pickerValueDefault: {
+      type: Array,
+      default: []
     }
   },
   methods: {
