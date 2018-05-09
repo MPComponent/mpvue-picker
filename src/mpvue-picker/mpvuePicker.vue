@@ -8,9 +8,11 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" @change="pickerChange">
-        <picker-view-column>
-          <div class="picker-item" v-for="item in columuOne" :key="index">{{item}}</div>
-        </picker-view-column>
+        <block v-for="(n,index1) in 3" :key="index1">
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index2) in columuOne" :key="index2">{{item}}</div>
+          </picker-view-column>
+        </block>
       </picker-view>
     </div>
   </div>
