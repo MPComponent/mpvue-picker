@@ -1,8 +1,7 @@
 <template>
   <div class="mpvue-picker">
-    <button type="default" @click="showPickerView">多级联动选择</button>
-    <div :class="{'pickerMask':isShowMask}" @click="maskClick" catchtouchmove="true"></div>
-    <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':pickerShow}">
+    <div :class="{'pickerMask':showPicker}" @click="maskClick" catchtouchmove="true"></div>
+    <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':showPicker}">
       <div class="mpvue-picker__hd">
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
@@ -22,12 +21,15 @@
 export default {
   data() {
     return {
-      isShowMask: true,
-      pickerShow: true,
-      columuOne: ['中国', '美国', '日本', '俄罗斯']
+
     };
   },
   props: {
+    /* 是否显示控件 */
+    showPicker: {
+      type: Boolean,
+      default: false
+    },
     /* picker 列数 */
     columuNum: {
       type: Number,
@@ -49,16 +51,15 @@ export default {
       this.pickerCancel();
     },
     pickerCancel() {
-      this.isShowMask = false;
-      this.pickerShow = false;
+      this.showPicker = false;
+      this.$emit('pickerCancel');
     },
     pickerConfirm() {
-      this.isShowMask = false;
-      this.pickerShow = false;
+      this.showPicker = false;
+      this.$emit('pickerCancel');
     },
     showPickerView() {
-      this.isShowMask = true;
-      this.pickerShow = true;
+      this.showPicker = true;
     },
     pickerChange(e) {
       console.log(e.mp.detail.value);
