@@ -8,7 +8,7 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" @change="pickerChange">
-        <block v-for="(n,index1) in 3" :key="index1">
+        <block v-for="(n,index1) in columuNum" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in columuOne" :key="index2">{{item}}</div>
           </picker-view-column>
@@ -26,6 +26,12 @@ export default {
       pickerShow: true,
       columuOne: ['中国', '美国', '日本', '俄罗斯']
     };
+  },
+  props: {
+    columuNum: {
+      type: Number,
+      default: 1
+    }
   },
   methods: {
     maskClick() {
@@ -45,6 +51,7 @@ export default {
     },
     pickerChange(e) {
       console.log(e.mp.detail.value);
+      this.$emit('onChange', e.mp.detail.value);
     }
   }
 };

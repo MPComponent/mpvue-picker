@@ -1,6 +1,6 @@
 <template>
   <div class="mvpue-picker">
-    <mpvue-picker></mpvue-picker>
+    <mpvue-picker :columuNum=3 @onChange="onChange"></mpvue-picker>
   </div>
 </template>
 
@@ -9,6 +9,11 @@ import mpvuePicker from '@/mpvue-picker/mpvuePicker.vue';
 export default {
   components: {
     mpvuePicker
+  },
+  methods: {
+    onChange(e) {
+      console.log(e);
+    }
   }
 };
 </script>
