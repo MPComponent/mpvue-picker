@@ -12,7 +12,8 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "mpvue": "^1.0.10"
+    "mpvue": "^1.0.10",
+    "mpvue-picker": "^1.0.1"
   },
   "devDependencies": {
     "mpvue-loader": "^1.0.13",
