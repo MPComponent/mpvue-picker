@@ -8,6 +8,9 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" @change="pickerChange">
+        <picker-view-column>
+          <div class="picker-item" v-for="item in columuOne" :key="index">{{item}}</div>
+        </picker-view-column>
       </picker-view>
     </div>
   </div>
@@ -18,7 +21,8 @@ export default {
   data() {
     return {
       isShowMask: true,
-      pickerShow: true
+      pickerShow: true,
+      columuOne: ['中国', '美国', '日本', '俄罗斯']
     };
   },
   methods: {
@@ -36,6 +40,9 @@ export default {
     showPickerView() {
       this.isShowMask = true;
       this.pickerShow = true;
+    },
+    pickerChange(e) {
+      console.log(e.mp.detail.value);
     }
   }
 };
@@ -95,6 +102,10 @@ export default {
 }
 .mpvue-picker__action:last-child {
   text-align: right;
+}
+.picker-item {
+  text-align: center;
+  line-height: 40px;
 }
 .mpvue-picker-view {
   position: relative;
