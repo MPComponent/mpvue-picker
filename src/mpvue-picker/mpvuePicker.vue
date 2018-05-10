@@ -36,7 +36,7 @@ export default {
     };
   },
   mounted() {
-    console.log(this.pickerValueArray);
+    console.log(this.pickerValueDefault);
     this.initPicker(this.pickerValueArray, true);
   },
   props: {
@@ -69,6 +69,7 @@ export default {
   methods: {
     // 接收两个参数，1.picker 的值；2.是否联动
     initPicker(valueArray, mulLinkage) {
+      console.log(this);
       let pickerValueArray = valueArray;
       // 初始化多级联动
       // const mulNum = 2; // 假定为 2 级联动
@@ -78,9 +79,18 @@ export default {
         pickerValueMulTwoOne.push(pickerValueArray[i].label);
       }
       // 渲染第二列
-      for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
-        pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+      // 如果有设定的默认值
+      if (this.pickerValueDefault.length === 2) {
+        let num = this.pickerValueDefault[0];
+        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+          pickerValueMulTwoTwo.push(pickerValueArray[num].children[i].label);
+        }
+      } else {
+        for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
+          pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+        }
       }
+
       this.pickerValueMulTwoOne = pickerValueMulTwoOne;
       this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
     },
@@ -102,7 +112,6 @@ export default {
     },
     pickerChange(e) {
       if (this.isMul) {
-        console.log('级联');
       } else {
         console.log(e.mp.detail.value);
         this.pickerValueDefault = e.mp.detail.value;
