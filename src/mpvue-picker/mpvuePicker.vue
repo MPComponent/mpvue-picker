@@ -7,9 +7,17 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValueDefault" @change="pickerChange">
-        <block v-for="(n,index1) in columuNum" :key="index1">
+        <block v-for="(n,index1) in columuNum" :key="index1" v-if="!isMul">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
+          </picker-view-column>
+        </block>
+        <block>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
+          </picker-view-column>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index4) in pickerValueMulTwoTwo" :key="index4">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -22,8 +30,14 @@ export default {
   data() {
     return {
       pickerChangeValue: [],
-      pickerValue: []
+      pickerValue: [],
+      pickerValueMulTwoOne: [],
+      pickerValueMulTwoTwo: []
     };
+  },
+  mounted() {
+    console.log(this.pickerValueArray);
+    this.initPicker(this.pickerValueArray, true);
   },
   props: {
     /* 是否显示控件 */
@@ -45,9 +59,31 @@ export default {
     pickerValueDefault: {
       type: Array,
       default: []
+    },
+    /* 是否为级联 */
+    isMul: {
+      type: Boolean,
+      default: false
     }
   },
   methods: {
+    // 接收两个参数，1.picker 的值；2.是否联动
+    initPicker(valueArray, mulLinkage) {
+      let pickerValueArray = valueArray;
+      // 初始化多级联动
+      // const mulNum = 2; // 假定为 2 级联动
+      let pickerValueMulTwoOne = [];
+      let pickerValueMulTwoTwo = [];
+      for (let i = 0, length = pickerValueArray.length; i < length; i++) {
+        pickerValueMulTwoOne.push(pickerValueArray[i].label);
+      }
+      // 渲染第二列
+      for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
+        pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+      }
+      this.pickerValueMulTwoOne = pickerValueMulTwoOne;
+      this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+    },
     maskClick() {
       this.pickerCancel();
     },
@@ -65,9 +101,13 @@ export default {
       this.showPicker = true;
     },
     pickerChange(e) {
-      console.log(e.mp.detail.value);
-      this.pickerValueDefault = e.mp.detail.value;
-      this.$emit('onChange', e.mp.detail.value);
+      if (this.isMul) {
+        console.log('级联');
+      } else {
+        console.log(e.mp.detail.value);
+        this.pickerValueDefault = e.mp.detail.value;
+        this.$emit('onChange', e.mp.detail.value);
+      }
     }
   }
 };
@@ -104,7 +144,7 @@ export default {
   font-size: 17px;
 }
 .mpvue-picker__hd:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   bottom: 0;

@@ -1,7 +1,7 @@
 <template>
   <div class="mvpue-picker">
     <button type="default" @click="showPickerView">多级联动选择</button>
-    <mpvue-picker :showPicker="showPicker" :columuNum=3 :pickerValueDefault=[1,0,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker :showPicker="showPicker" :columuNum=3 :isMul='true' :pickerValueDefault=[1,0,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkagePicker"></mpvue-picker>
   </div>
 </template>
 
@@ -18,7 +18,51 @@ export default {
         ['茶', '咖啡', '寿司', '奶酪'],
         ['歼20', 'F22', '秋月级', 'T50']
       ],
-      showPicker: false
+      showPicker: false,
+      mulLinkagePicker: [{
+        label: '飞机票',
+        value: 0,
+        children: [{
+          label: '经济舱',
+          value: 1
+        },
+        {
+          label: '商务舱',
+          value: 2
+        }
+        ]
+      },
+      {
+        label: '火车票',
+        value: 1,
+        children: [{
+          label: '卧铺',
+          value: 1
+        },
+        {
+          label: '坐票',
+          value: 2
+        },
+        {
+          label: '站票',
+          value: 3
+        }
+        ]
+      },
+      {
+        label: '汽车票',
+        value: 3,
+        children: [{
+          label: '快班',
+          value: 1
+        },
+        {
+          label: '普通',
+          value: 2
+        }
+        ]
+      }
+      ]
     };
   },
   methods: {
