@@ -21,7 +21,8 @@
 export default {
   data() {
     return {
-
+      pickerChangeValue: [],
+      pickerValue: []
     };
   },
   props: {
@@ -54,15 +55,18 @@ export default {
       this.showPicker = false;
       this.$emit('pickerCancel');
     },
-    pickerConfirm() {
+    pickerConfirm(e) {
       this.showPicker = false;
-      this.$emit('pickerCancel');
+      this.pickerValue = this.pickerValueDefault;
+      console.log(this.pickerValue);
+      this.$emit('pickerConfirm', this.pickerValue);
     },
     showPickerView() {
       this.showPicker = true;
     },
     pickerChange(e) {
       console.log(e.mp.detail.value);
+      this.pickerValueDefault = e.mp.detail.value;
       this.$emit('onChange', e.mp.detail.value);
     }
   }
@@ -100,7 +104,7 @@ export default {
   font-size: 17px;
 }
 .mpvue-picker__hd:after {
-  content: " ";
+  content: ' ';
   position: absolute;
   left: 0;
   bottom: 0;
