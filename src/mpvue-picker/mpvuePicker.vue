@@ -176,8 +176,34 @@ export default {
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
         this.pickerValue = changeValue;
         this.$emit('onChange', this.pickerValue);
-      } else {
-        console.log('三级联动');
+      } else if (this.deepLength === 3) {
+        let pickerValueArray = this.pickerValueArray;
+        let changeValue = e.mp.detail.value;
+        let pickerValueMulThreeTwo = [];
+        let pickerValueMulThreeThree = [];
+        // 重新渲染第二列
+        // 如果是第一列滚动
+        if (changeValue[0] !== this.pickerValue[0]) {
+          this.pickerValueMulThreeTwo = [];
+          for (let i = 0, length = pickerValueArray[changeValue[0]].children.length; i < length; i++) {
+            pickerValueMulThreeTwo.push(pickerValueArray[changeValue[0]].children[i].label);
+          }
+          // 重新渲染第三列
+          for (let i = 0, length = pickerValueArray[changeValue[0]].children[changeValue[1]].children.length; i < length; i++) {
+            pickerValueMulThreeThree.push(pickerValueArray[changeValue[0]].children[changeValue[1]].children[i].label);
+          }
+        } else { // 第二列滚动
+          // 重新渲染第三列
+          this.pickerValueMulThreeThree = [];
+          pickerValueMulThreeTwo = this.pickerValueMulThreeTwo;
+          for (let i = 0, length = pickerValueArray[changeValue[0]].children[changeValue[1]].children.length; i < length; i++) {
+            pickerValueMulThreeThree.push(pickerValueArray[changeValue[0]].children[changeValue[1]].children[i].label);
+          }
+        }
+        this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
+        this.pickerValueMulThreeThree = pickerValueMulThreeThree;
+        this.pickerValue = changeValue;
+        this.$emit('onChange', this.pickerValue);
       }
     }
   }
