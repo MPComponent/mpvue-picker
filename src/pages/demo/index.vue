@@ -1,7 +1,7 @@
 <template>
   <div class="mvpue-picker">
     <button type="default" @click="showPickerView">多级联动选择</button>
-    <mpvue-picker ref="mpvuePicker" :deepLength=2 :isMul='true' :pickerValueDefault=[1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkagePicker"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :isMul='false' :pickerValueDefault=[1,1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 

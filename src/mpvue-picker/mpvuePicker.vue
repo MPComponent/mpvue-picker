@@ -6,8 +6,8 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" value="pickerValueDefault" @change="pickerChange" v-if="!isMul">
-        <block v-for="(n,index1) in columuNum" :key="index1">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMul">
+        <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
@@ -78,7 +78,7 @@ export default {
       this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
-      if (this.deepLength === 2) { // 两级联动
+      if (this.isMul && this.deepLength === 2) { // 两级联动
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
         for (let i = 0, length = pickerValueArray.length; i < length; i++) {
@@ -120,12 +120,8 @@ export default {
       this.showPicker = true;
     },
     pickerChange(e) {
-      if (this.isMul) {
-      } else {
-        console.log(e.mp.detail.value);
-        this.pickerValueDefault = e.mp.detail.value;
-        this.$emit('onChange', e.mp.detail.value);
-      }
+      this.pickerValue = e.mp.detail.value;
+      this.$emit('onChange', e.mp.detail.value);
     },
     pickerChangeMul(e) {
       let pickerValueArray = this.pickerValueArray;
