@@ -6,12 +6,14 @@
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValueDefault" @change="pickerChange">
-        <block v-for="(n,index1) in columuNum" :key="index1" v-if="!isMul">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" value="pickerValueDefault" @change="pickerChange" v-if="!isMul">
+        <block v-for="(n,index1) in columuNum" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
         </block>
+      </picker-view>
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" value="pickerValueDefault" @change="pickerChangeMul" v-if="isMul">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
@@ -36,7 +38,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.pickerValueDefault);
     this.initPicker(this.pickerValueArray, true);
   },
   props: {
@@ -69,7 +70,6 @@ export default {
   methods: {
     // 接收两个参数，1.picker 的值；2.是否联动
     initPicker(valueArray, mulLinkage) {
-      console.log(this);
       let pickerValueArray = valueArray;
       // 初始化多级联动
       // const mulNum = 2; // 假定为 2 级联动
@@ -117,6 +117,17 @@ export default {
         this.pickerValueDefault = e.mp.detail.value;
         this.$emit('onChange', e.mp.detail.value);
       }
+    },
+    pickerChangeMul(e) {
+      let pickerValueArray = this.pickerValueArray;
+      let changeValue = e.mp.detail.value;
+      let pickerValueMulTwoTwo = [];
+      // 第一列滚动第二列数据更新
+      for (let i = 0, length = pickerValueArray[changeValue[0]].children.length; i < length; i++) {
+        pickerValueMulTwoTwo.push(pickerValueArray[changeValue[0]].children[i].label);
+      }
+      this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+      console.log(pickerValueMulTwoTwo);
     }
   }
 };
@@ -153,7 +164,7 @@ export default {
   font-size: 17px;
 }
 .mpvue-picker__hd:after {
-  content: " ";
+  content: ' ';
   position: absolute;
   left: 0;
   bottom: 0;
