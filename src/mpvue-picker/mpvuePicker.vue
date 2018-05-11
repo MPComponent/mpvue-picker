@@ -23,6 +23,19 @@
           </picker-view-column>
         </block>
       </picker-view>
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMul && deepLength===3">
+        <block>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index5) in pickerValueMulThreeOne" :key="index5">{{item}}</div>
+          </picker-view-column>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index6) in pickerValueMulThreeTwo" :key="index6">{{item}}</div>
+          </picker-view-column>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index7) in pickerValueMulThreeThree" :key="index7">{{item}}</div>
+          </picker-view-column>
+        </block>
+      </picker-view>
     </div>
   </div>
 </template>
@@ -34,7 +47,10 @@ export default {
       pickerChangeValue: [],
       pickerValue: [],
       pickerValueMulTwoOne: [],
-      pickerValueMulTwoTwo: []
+      pickerValueMulTwoTwo: [],
+      pickerValueMulThreeOne: [],
+      pickerValueMulThreeTwo: [],
+      pickerValueMulThreeThree: []
     };
   },
   mounted() {
@@ -66,9 +82,10 @@ export default {
       type: Boolean,
       default: false
     },
+    /* 几级联动 */
     deepLength: {
       type: Number,
-      default: 2
+      default: 0
     }
   },
   methods: {
@@ -81,6 +98,7 @@ export default {
       if (this.isMul && this.deepLength === 2) { // 两级联动
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
+        // 第一列
         for (let i = 0, length = pickerValueArray.length; i < length; i++) {
           pickerValueMulTwoOne.push(pickerValueArray[i].label);
         }
@@ -98,23 +116,46 @@ export default {
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      } else if (this.deepLength === 3) {
+      } else if (this.isMul && this.deepLength === 3) {
         console.log('三级联动');
+        let pickerValueMulThreeOne = [];
+        let pickerValueMulThreeTwo = [];
+        let pickerValueMulThreeThree = [];
+        // 第一列
+        for (let i = 0, length = pickerValueArray.length; i < length; i++) {
+          pickerValueMulThreeOne.push(pickerValueArray[i].label);
+        }
+        // 渲染第二列
+        if (this.pickerValueDefault.length === 3) {
+          let num = this.pickerValueDefault[0];
+          for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+            pickerValueMulThreeTwo.push(pickerValueArray[num].children[i].label);
+          }
+          // 第三列
+          let numSecond = this.pickerValueDefault[1];
+          console.log(pickerValueArray[num].children[numSecond].children.length);
+          for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
+            pickerValueMulThreeThree.push(pickerValueArray[num].children[numSecond].children[i].label);
+          }
+        }
+        this.pickerValueMulThreeOne = pickerValueMulThreeOne;
+        this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
+        this.pickerValueMulThreeThree = pickerValueMulThreeThree;
       }
+    },
+    show() {
+      this.showPicker = true;
     },
     maskClick() {
       this.pickerCancel();
     },
     pickerCancel() {
       this.showPicker = false;
-      this.$emit('pickerCancel');
+      // this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
       this.showPicker = false;
       this.$emit('pickerConfirm', this.pickerValue);
-    },
-    show() {
-      this.showPicker = true;
     },
     showPickerView() {
       this.showPicker = true;
@@ -124,16 +165,20 @@ export default {
       this.$emit('onChange', e.mp.detail.value);
     },
     pickerChangeMul(e) {
-      let pickerValueArray = this.pickerValueArray;
-      let changeValue = e.mp.detail.value;
-      let pickerValueMulTwoTwo = [];
-      // 第一列滚动第二列数据更新
-      for (let i = 0, length = pickerValueArray[changeValue[0]].children.length; i < length; i++) {
-        pickerValueMulTwoTwo.push(pickerValueArray[changeValue[0]].children[i].label);
+      if (this.deepLength === 2) {
+        let pickerValueArray = this.pickerValueArray;
+        let changeValue = e.mp.detail.value;
+        let pickerValueMulTwoTwo = [];
+        // 第一列滚动第二列数据更新
+        for (let i = 0, length = pickerValueArray[changeValue[0]].children.length; i < length; i++) {
+          pickerValueMulTwoTwo.push(pickerValueArray[changeValue[0]].children[i].label);
+        }
+        this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+        this.pickerValue = changeValue;
+        this.$emit('onChange', this.pickerValue);
+      } else {
+        console.log('三级联动');
       }
-      this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      this.pickerValue = changeValue;
-      this.$emit('onChange', this.pickerValue);
     }
   }
 };
