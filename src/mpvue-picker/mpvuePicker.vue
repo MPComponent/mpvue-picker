@@ -13,7 +13,7 @@
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" value="pickerValueDefault" @change="pickerChangeMul" v-if="isMul">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMul && deepLength===2">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
@@ -65,11 +65,17 @@ export default {
     isMul: {
       type: Boolean,
       default: false
+    },
+    deepLength: {
+      type: Number,
+      default: 2
     }
   },
   methods: {
     // 接收两个参数，1.picker 的值；2.是否联动
     initPicker(valueArray, mulLinkage) {
+      console.log('init');
+      this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
       // const mulNum = 2; // 假定为 2 级联动
@@ -99,6 +105,8 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
+      this.pickerValueDefault = this.pickerValue;
+      console.log(this.pickerValue);
       this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
@@ -127,6 +135,8 @@ export default {
         pickerValueMulTwoTwo.push(pickerValueArray[changeValue[0]].children[i].label);
       }
       this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+      this.pickerValueDefault = changeValue;
+      this.pickerValue = changeValue;
       console.log(pickerValueMulTwoTwo);
     }
   }
