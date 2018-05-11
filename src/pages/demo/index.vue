@@ -1,7 +1,7 @@
 <template>
   <div class="mvpue-picker">
     <button type="default" @click="showPickerView">多级联动选择</button>
-    <mpvue-picker :showPicker="showPicker" :deepLength=2 :isMul='true' :pickerValueDefault=[1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkagePicker"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :deepLength=2 :isMul='true' :pickerValueDefault=[1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkagePicker"></mpvue-picker>
   </div>
 </template>
 
@@ -18,7 +18,6 @@ export default {
         ['茶', '咖啡', '寿司', '奶酪'],
         ['歼20', 'F22', '秋月级', 'T50']
       ],
-      showPicker: false,
       mulLinkagePicker: [{
         label: '飞机票',
         value: 0,
@@ -69,11 +68,8 @@ export default {
     onChange(e) {
       console.log(e);
     },
-    pickerCancel() {
-      this.showPicker = false;
-    },
     showPickerView() {
-      this.showPicker = true;
+      this.$refs.mpvuePicker.show();
     },
     pickerConfirm(e) {
       console.log(e);

@@ -78,42 +78,43 @@ export default {
       this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
-      // const mulNum = 2; // 假定为 2 级联动
-      let pickerValueMulTwoOne = [];
-      let pickerValueMulTwoTwo = [];
-      for (let i = 0, length = pickerValueArray.length; i < length; i++) {
-        pickerValueMulTwoOne.push(pickerValueArray[i].label);
-      }
-      // 渲染第二列
-      // 如果有设定的默认值
-      if (this.pickerValueDefault.length === 2) {
-        let num = this.pickerValueDefault[0];
-        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
-          pickerValueMulTwoTwo.push(pickerValueArray[num].children[i].label);
+      if (this.deepLength === 2) { // 两级联动
+        let pickerValueMulTwoOne = [];
+        let pickerValueMulTwoTwo = [];
+        for (let i = 0, length = pickerValueArray.length; i < length; i++) {
+          pickerValueMulTwoOne.push(pickerValueArray[i].label);
         }
-      } else {
-        for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
-          pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+        // 渲染第二列
+        // 如果有设定的默认值
+        if (this.pickerValueDefault.length === 2) {
+          let num = this.pickerValueDefault[0];
+          for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+            pickerValueMulTwoTwo.push(pickerValueArray[num].children[i].label);
+          }
+        } else {
+          for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
+            pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+          }
         }
+        this.pickerValueMulTwoOne = pickerValueMulTwoOne;
+        this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+      } else if (this.deepLength === 3) {
+        console.log('三级联动');
       }
-
-      this.pickerValueMulTwoOne = pickerValueMulTwoOne;
-      this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
     },
     maskClick() {
       this.pickerCancel();
     },
     pickerCancel() {
       this.showPicker = false;
-      this.pickerValueDefault = this.pickerValue;
-      console.log(this.pickerValue);
       this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
       this.showPicker = false;
-      this.pickerValue = this.pickerValueDefault;
-      console.log(this.pickerValue);
       this.$emit('pickerConfirm', this.pickerValue);
+    },
+    show() {
+      this.showPicker = true;
     },
     showPickerView() {
       this.showPicker = true;
@@ -135,9 +136,8 @@ export default {
         pickerValueMulTwoTwo.push(pickerValueArray[changeValue[0]].children[i].label);
       }
       this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      this.pickerValueDefault = changeValue;
       this.pickerValue = changeValue;
-      console.log(pickerValueMulTwoTwo);
+      this.$emit('onChange', this.pickerValue);
     }
   }
 };
