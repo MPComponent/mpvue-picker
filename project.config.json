@@ -9,7 +9,7 @@
 	},
 	"miniprogramRoot": "./dist/",
 	"compileType": "miniprogram",
-	"appid": "wx9279d22d7f0894ed",
+	"appid": "",
 	"projectname": "mpvue-picker",
 	"condition": {
 		"search": {

@@ -100,6 +100,7 @@ export default {
   },
   methods: {
     initPicker(valueArray) {
+      this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
       if (this.isMulLinkage && this.deepLength === 2) { // 两级联动
