@@ -100,14 +100,11 @@ export default {
   },
   watch: {
     pickerValueArray(oldVal, newVal) {
-      console.log('改变了');
       this.pickerValueArrayChange = true;
     }
   },
   methods: {
-    // 接收两个参数，1.picker 的值；2.是否联动
-    initPicker(valueArray, mulLinkage) {
-      console.log('init');
+    initPicker(valueArray) {
       this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
@@ -162,12 +159,10 @@ export default {
       }
     },
     show() {
-      console.log(this.pickerValueArray);
       setTimeout(() => {
         if (this.pickerValueArrayChange) {
-          this.initPicker(this.pickerValueArray, true);
+          this.initPicker(this.pickerValueArray);
           this.showPicker = true;
-          console.log('false');
           this.pickerValueArrayChange = false;
         } else {
           this.showPicker = true;
@@ -179,8 +174,6 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
-      this.isMulLinkage = false;
-      // this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
       this.showPicker = false;
@@ -204,7 +197,6 @@ export default {
         }
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
         this.pickerValue = changeValue;
-        this.$emit('onChange', this.pickerValue);
       } else if (this.deepLength === 3) {
         let pickerValueArray = this.pickerValueArray;
         let changeValue = e.mp.detail.value;
@@ -232,8 +224,8 @@ export default {
         this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
         this.pickerValueMulThreeThree = pickerValueMulThreeThree;
         this.pickerValue = changeValue;
-        this.$emit('onChange', this.pickerValue);
       }
+      this.$emit('onChange', this.pickerValue);
     }
   }
 };
