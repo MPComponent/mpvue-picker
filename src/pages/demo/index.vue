@@ -9,7 +9,7 @@
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
     </div>
-    <mpvue-picker ref="mpvuePicker" :isMul='isMul' :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :isMulLinkage='isMulLinkage' :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   },
   data() {
     return {
-      isMul: false, // 是否为联动
+      isMulLinkage: false, // 是否为联动
       deepLength: 0, // 几级联动
       pickerValueDefault: [], // 初始化值
       pickerValueArray: [], // picker 数组值
@@ -172,17 +172,24 @@ export default {
       this.deepLength = 0;
       this.$refs.mpvuePicker.show();
     },
+    // 多列选择
+    showMulPicker() {
+      this.pickerValueArray = this.pickerMulArray;
+      this.isMulLinkage = false;
+      this.deepLength = 0;
+      this.$refs.mpvuePicker.show();
+    },
     // 二级联动选择
     showMulLinkageTwoPicker() {
       this.pickerValueArray = this.mulLinkageTwoPicker;
-      this.isMul = true;
+      this.isMulLinkage = true;
       this.deepLength = 2;
       this.$refs.mpvuePicker.show();
     },
     // 三级联动选择
     showMulLinkageThreePicker() {
       this.pickerValueArray = this.mulLinkageThreePicker;
-      this.isMul = true;
+      this.isMulLinkage = true;
       this.deepLength = 3;
       this.pickerValueDefault = [1, 1, 1];
       this.$refs.mpvuePicker.show();

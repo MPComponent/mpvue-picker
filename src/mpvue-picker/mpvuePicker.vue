@@ -6,14 +6,14 @@
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMul">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMulLinkage">
         <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMul && deepLength===2">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMulLinkage && deepLength===2">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
@@ -23,7 +23,7 @@
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMul && deepLength===3">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMulLinkage && deepLength===3">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index5) in pickerValueMulThreeOne" :key="index5">{{item}}</div>
@@ -76,7 +76,7 @@ export default {
       default: []
     },
     /* 是否为级联 */
-    isMul: {
+    isMulLinkage: {
       type: Boolean,
       default: false
     },
@@ -99,7 +99,7 @@ export default {
       this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
-      if (this.isMul && this.deepLength === 2) { // 两级联动
+      if (this.isMulLinkage && this.deepLength === 2) { // 两级联动
         console.log('两级联动');
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
@@ -121,7 +121,7 @@ export default {
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      } else if (this.isMul && this.deepLength === 3) {
+      } else if (this.isMulLinkage && this.deepLength === 3) {
         console.log('三级联动');
         let pickerValueMulThreeOne = [];
         let pickerValueMulThreeTwo = [];
@@ -167,7 +167,7 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
-      this.isMul = false;
+      this.isMulLinkage = false;
       // this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
