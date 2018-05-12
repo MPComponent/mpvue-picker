@@ -1,7 +1,15 @@
 <template>
   <div class="mvpue-picker">
-    <button type="default" @click="showPickerView">单列选择</button>
-    <mpvue-picker ref="mpvuePicker" :isMul='true' :deepLength=3 :pickerValueDefault=[0,1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkageThreePicker"></mpvue-picker>
+    <div class="page-hd">
+      <div class="page-title">mvpue-picker 示例</div>
+    </div>
+    <div class="page-bd">
+      <button type="default" @click="showSinglePicker">单列选择</button>
+      <button type="default" @click="showMulPicker">多列选择</button>
+      <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
+      <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
+    </div>
+    <mpvue-picker ref="mpvuePicker" :isMul='isMul' :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -13,6 +21,10 @@ export default {
   },
   data() {
     return {
+      isMul: false, // 是否为联动
+      deepLength: 0, // 几级联动
+      pickerValueDefault: [], // 初始化值
+      pickerValueArray: [], // picker 数组值
       pickerSingleArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助'],
       pickerMulArray: [
         ['中国', '美国', '日本', '俄罗斯'],
@@ -153,6 +165,20 @@ export default {
     onChange(e) {
       console.log(e);
     },
+    // 单列
+    showSinglePicker() {
+      this.pickerValueArray = this.pickerMulArray;
+      this.isMul = false;
+      this.deepLength = 0;
+      this.$refs.mpvuePicker.show();
+    },
+    // 二级联动选择
+    showMulLinkageTwoPicker() {
+      this.pickerValueArray = this.mulLinkageTwoPicker;
+      this.isMul = true;
+      this.deepLength = 2;
+      this.$refs.mpvuePicker.show();
+    },
     showPickerView() {
       this.$refs.mpvuePicker.show();
     },
@@ -165,5 +191,17 @@ export default {
 </script>
 
 <style>
-
+.page-hd {
+  padding: 40px;
+}
+.page-title {
+  font-size: 20px;
+  font-weight: 400px;
+}
+.page-bd {
+  padding: 15px;
+}
+button {
+  margin-top: 15px;
+}
 </style>

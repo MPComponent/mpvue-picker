@@ -46,15 +46,13 @@ export default {
     return {
       pickerChangeValue: [],
       pickerValue: [],
+      pickerValueArrayChange: true,
       pickerValueMulTwoOne: [],
       pickerValueMulTwoTwo: [],
       pickerValueMulThreeOne: [],
       pickerValueMulThreeTwo: [],
       pickerValueMulThreeThree: []
     };
-  },
-  mounted() {
-    this.initPicker(this.pickerValueArray, true);
   },
   props: {
     /* 是否显示控件 */
@@ -86,6 +84,12 @@ export default {
     deepLength: {
       type: Number,
       default: 0
+    }
+  },
+  watch: {
+    pickerValueArray(oldVal, newVal) {
+      console.log('改变了');
+      this.pickerValueArrayChange = false;
     }
   },
   methods: {
@@ -144,6 +148,8 @@ export default {
       }
     },
     show() {
+      console.log(this.pickerValueArray);
+      this.initPicker(this.pickerValueArray, true);
       this.showPicker = true;
     },
     maskClick() {
@@ -151,6 +157,7 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
+      this.isMul = false;
       // this.$emit('pickerCancel');
     },
     pickerConfirm(e) {
@@ -241,7 +248,7 @@ export default {
   font-size: 17px;
 }
 .mpvue-picker__hd:after {
-  content: ' ';
+  content: " ";
   position: absolute;
   left: 0;
   bottom: 0;
