@@ -9,7 +9,7 @@
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
     </div>
-    <mpvue-picker ref="mpvuePicker" :isMulLinkage='isMulLinkage' :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :isMul="isMul" :isMulLinkage='isMulLinkage' :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -21,6 +21,7 @@ export default {
   },
   data() {
     return {
+      isMul: false, // 是否为多列
       isMulLinkage: false, // 是否为联动
       deepLength: 0, // 几级联动
       pickerValueDefault: [], // 初始化值
@@ -167,7 +168,7 @@ export default {
     },
     // 单列
     showSinglePicker() {
-      this.pickerValueArray = this.pickerMulArray;
+      this.pickerValueArray = this.pickerSingleArray;
       this.isMul = false;
       this.deepLength = 0;
       this.$refs.mpvuePicker.show();
@@ -175,6 +176,7 @@ export default {
     // 多列选择
     showMulPicker() {
       this.pickerValueArray = this.pickerMulArray;
+      this.isMul = true;
       this.isMulLinkage = false;
       this.deepLength = 0;
       this.$refs.mpvuePicker.show();
@@ -182,6 +184,7 @@ export default {
     // 二级联动选择
     showMulLinkageTwoPicker() {
       this.pickerValueArray = this.mulLinkageTwoPicker;
+      this.isMul = false;
       this.isMulLinkage = true;
       this.deepLength = 2;
       this.$refs.mpvuePicker.show();
@@ -190,6 +193,7 @@ export default {
     showMulLinkageThreePicker() {
       this.pickerValueArray = this.mulLinkageThreePicker;
       this.isMulLinkage = true;
+      this.isMul = false;
       this.deepLength = 3;
       this.pickerValueDefault = [1, 1, 1];
       this.$refs.mpvuePicker.show();

@@ -6,7 +6,14 @@
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMulLinkage">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMul && !isMulLinkage">
+        <block>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index1) in pickerValueArray" :key="index1">{{item}}</div>
+          </picker-view-column>
+        </block>
+      </picker-view>
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="isMul">
         <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
@@ -74,6 +81,11 @@ export default {
     pickerValueDefault: {
       type: Array,
       default: []
+    },
+    /* 是否为多列 */
+    isMul: {
+      type: Boolean,
+      default: false
     },
     /* 是否为级联 */
     isMulLinkage: {
