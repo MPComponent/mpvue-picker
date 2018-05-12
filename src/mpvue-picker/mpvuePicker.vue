@@ -150,18 +150,16 @@ export default {
     },
     show() {
       console.log(this.pickerValueArray);
-      if (this.pickerValueArrayChange) {
-        setTimeout(() => {
+      setTimeout(() => {
+        if (this.pickerValueArrayChange) {
           this.initPicker(this.pickerValueArray, true);
           this.showPicker = true;
-        }, 0);
-        this.pickerValueArrayChange = false;
-      } else {
-        this.showPicker = true;
-      }
-      /* setTimeout(() => {
-        this.showPicker = true;
-      }, 200); */
+          console.log('false');
+          this.pickerValueArrayChange = false;
+        } else {
+          this.showPicker = true;
+        }
+      }, 0);
     },
     maskClick() {
       this.pickerCancel();
