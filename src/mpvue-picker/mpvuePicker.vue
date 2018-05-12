@@ -3,8 +3,8 @@
     <div :class="{'pickerMask':showPicker}" @click="maskClick" catchtouchmove="true"></div>
     <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':showPicker}">
       <div class="mpvue-picker__hd">
-        <div href="javascript:;" class="mpvue-picker__action" @click="pickerCancel">取消</div>
-        <div href="javascript:;" class="mpvue-picker__action" @click="pickerConfirm">确定</div>
+        <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
+        <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMul">
         <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
@@ -89,7 +89,7 @@ export default {
   watch: {
     pickerValueArray(oldVal, newVal) {
       console.log('改变了');
-      this.pickerValueArrayChange = false;
+      this.pickerValueArrayChange = true;
     }
   },
   methods: {
@@ -100,6 +100,7 @@ export default {
       let pickerValueArray = valueArray;
       // 初始化多级联动
       if (this.isMul && this.deepLength === 2) { // 两级联动
+        console.log('两级联动');
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
         // 第一列
@@ -149,8 +150,18 @@ export default {
     },
     show() {
       console.log(this.pickerValueArray);
-      this.initPicker(this.pickerValueArray, true);
-      this.showPicker = true;
+      if (this.pickerValueArrayChange) {
+        setTimeout(() => {
+          this.initPicker(this.pickerValueArray, true);
+          this.showPicker = true;
+        }, 0);
+        this.pickerValueArrayChange = false;
+      } else {
+        this.showPicker = true;
+      }
+      /* setTimeout(() => {
+        this.showPicker = true;
+      }, 200); */
     },
     maskClick() {
       this.pickerCancel();
@@ -263,7 +274,6 @@ export default {
   display: block;
   flex: 1;
   color: #1aad19;
-  cursor: pointer;
 }
 .mpvue-picker__action:first-child {
   text-align: left;
