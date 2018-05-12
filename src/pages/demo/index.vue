@@ -179,6 +179,14 @@ export default {
       this.deepLength = 2;
       this.$refs.mpvuePicker.show();
     },
+    // 三级联动选择
+    showMulLinkageThreePicker() {
+      this.pickerValueArray = this.mulLinkageThreePicker;
+      this.isMul = true;
+      this.deepLength = 3;
+      this.pickerValueDefault = [1, 1, 1];
+      this.$refs.mpvuePicker.show();
+    },
     showPickerView() {
       this.$refs.mpvuePicker.show();
     },

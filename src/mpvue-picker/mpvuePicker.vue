@@ -131,6 +131,7 @@ export default {
           pickerValueMulThreeOne.push(pickerValueArray[i].label);
         }
         // 渲染第二列
+        this.pickerValueDefault = this.pickerValueDefault.length === 3 ? this.pickerValueDefault : [0, 0, 0];
         if (this.pickerValueDefault.length === 3) {
           let num = this.pickerValueDefault[0];
           for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
