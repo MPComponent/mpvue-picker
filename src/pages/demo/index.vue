@@ -1,6 +1,6 @@
 <template>
   <div class="mvpue-picker">
-    <button type="default" @click="showPickerView">多级联动选择</button>
+    <button type="default" @click="showPickerView">单列选择</button>
     <mpvue-picker ref="mpvuePicker" :isMul='true' :deepLength=3 :pickerValueDefault=[0,1,1] @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="mulLinkageThreePicker"></mpvue-picker>
   </div>
 </template>
@@ -13,7 +13,8 @@ export default {
   },
   data() {
     return {
-      pickerValueArray: [
+      pickerSingleArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助'],
+      pickerMulArray: [
         ['中国', '美国', '日本', '俄罗斯'],
         ['茶', '咖啡', '寿司', '奶酪'],
         ['歼20', 'F22', '秋月级', 'T50']
