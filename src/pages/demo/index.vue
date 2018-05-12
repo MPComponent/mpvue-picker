@@ -15,6 +15,7 @@
 
 <script>
 import mpvuePicker from '@/mpvue-picker/mpvuePicker.vue';
+// import mpvuePicker from 'mpvue-picker';
 export default {
   components: {
     mpvuePicker
@@ -170,7 +171,7 @@ export default {
     showSinglePicker() {
       this.pickerValueArray = this.pickerSingleArray;
       this.isMul = false;
-      this.deepLength = 0;
+      this.isMulLinkage = false;
       this.$refs.mpvuePicker.show();
     },
     // 多列选择
@@ -187,6 +188,7 @@ export default {
       this.isMul = false;
       this.isMulLinkage = true;
       this.deepLength = 2;
+      this.pickerValueDefault = [1, 0];
       this.$refs.mpvuePicker.show();
     },
     // 三级联动选择

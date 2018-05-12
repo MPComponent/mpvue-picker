@@ -67,11 +67,6 @@ export default {
       type: Boolean,
       default: false
     },
-    /* picker 列数 */
-    columuNum: {
-      type: Number,
-      default: 1
-    },
     /* picker 数值 */
     pickerValueArray: {
       type: Array,
@@ -105,11 +100,9 @@ export default {
   },
   methods: {
     initPicker(valueArray) {
-      this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
       if (this.isMulLinkage && this.deepLength === 2) { // 两级联动
-        console.log('两级联动');
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
         // 第一列
@@ -131,7 +124,6 @@ export default {
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
       } else if (this.isMulLinkage && this.deepLength === 3) {
-        console.log('三级联动');
         let pickerValueMulThreeOne = [];
         let pickerValueMulThreeTwo = [];
         let pickerValueMulThreeThree = [];
@@ -148,7 +140,6 @@ export default {
           }
           // 第三列
           let numSecond = this.pickerValueDefault[1];
-          console.log(pickerValueArray[num].children[numSecond].children.length);
           for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
             pickerValueMulThreeThree.push(pickerValueArray[num].children[numSecond].children[i].label);
           }
