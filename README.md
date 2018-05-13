@@ -1,8 +1,11 @@
 # mpvue-picker
 
 > 基于 mpvue 框架的小程序选择控件
+> 支持单列、多列以及级联
 
+![npm version](https://img.shields.io/npm/v/mpvue-picker.svg?style=flat)
 ![GitHub package version](https://img.shields.io/github/package-json/v/KuangPF/mpvue-picker.svg)
+![download](https://img.shields.io/npm/dm/mpvue-picker.svg?style=flat)
 
 ## 前言
 在 [mpvue](https://github.com/Meituan-Dianping/mpvue)开源之初写了 [用 vue 写小程序，基于 mpvue 框架重写 weui](https://github.com/KuangPF/mpvue-weui)。当时用的是小程序的原生组件，没有对其进行封装和组件化。而对于现在的前端开发环境，`组件化`，`模块化`，`工程化`以及`自动化`已经是一种标配。而`mpvue`框架又提供了一个很好的组件化开发平台，因此就对小程序中的 `picker` 组件进行封装，使其在用`mpvue`开发的时候能够用快速的实现 `picker`的功能。
@@ -67,16 +70,54 @@ export default {
 ![mpvue-picker-demo03](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker03.gif)
 ![mpvue-picker-demo04](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker04.gif)
 
-## 参数
+## 参数说明
 
-| 参数        | 说明                      | 类型      | 可选值  | 是否必须    | 默认值    |
-| ---------  | ----------------------- | ------- | ---- | ---- |  ------ |
-| mode    | picker 组件类型     | String | selector（单列） multiSelector（多列） multiLinkageSelector（级联）    | 否 |selector   |
-| pickerValueArray    | picker 数据     | Array | -    | 是 | []   |
-| pickerValueDefault    | picker 默认选中值     | Array | -    | 否 | []   |
-| deepLength    | 几级联动     | Number | 2 , 3    | 当mode = multiLinkageSelector 时必须  | 2   |
-| onChange    | picer 组件滚动时回调，返回选中的数组索引     | EventHandle | -   | 否 | -  |
-| onConfirm    | picer 组件点击确定时回调，返回选中的数组索引     | EventHandle | -   | 否 | -  |
+### mode
+* 说明：picker 组件类型 
+* 类型：String
+* 可选值：
+    * selector（单列） 
+    * multiSelector（多列） 
+    * multiLinkageSelector（级联）
+* 是否必填： 否
+* 默认值：selector
+
+### pickerValueArray
+* 说明：picker 渲染数据
+* 类型：Array
+* 可选值：-
+* 是否必填： 是
+* 默认值：-
+
+### pickerValueDefault
+* 说明：picker 默认选中值 
+* 类型：Array
+* 可选值：-
+* 是否必填： 否
+* 默认值：[]
+ 
+### deepLength
+* 说明：几级联动
+* 类型：Number
+* 可选值：
+  * 2
+  * 3 
+* 是否必填： 否
+* 默认值：2
+
+### onChange
+* 说明：picer 组件滚动时回调，返回选中的数组索引
+* 类型：EventHandle
+* 可选值：-
+* 是否必填： 否
+* 默认值：-
+
+### onConfirm
+* 说明：picer 组件点击确定时回调，返回选中的数组索引
+* 类型：EventHandle
+* 可选值：-
+* 是否必填： 否
+* 默认值：-
 
 
 ## 相关数据结构说明
