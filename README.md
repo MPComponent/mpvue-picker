@@ -62,10 +62,10 @@ export default {
 
 ## 效果
 
-![mpvue-picker-demo01](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker01.gif)
-![mpvue-picker-demo02](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker02.gif)
-![mpvue-picker-demo03](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker03.gif)
-![mpvue-picker-demo04](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker04.gif)
+![mpvue-picker-demo01](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker01.gif)
+![mpvue-picker-demo02](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker02.gif)
+![mpvue-picker-demo03](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker03.gif)
+![mpvue-picker-demo04](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/img/picker04.gif)
 
 ## 参数
 
