@@ -9,14 +9,14 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='selector'">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index1) in pickerValueArray" :key="index1">{{item}}</div>
+            <div class="picker-item" v-for="(item,index1) in pickerValueSingleArray" :key="index1">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
-        <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
+        <block v-for="(n,index1) in pickerValueMulArray.length" :key="index1">
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
+            <div class="picker-item" v-for="(item,index2) in pickerValueMulArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -54,6 +54,8 @@ export default {
       pickerChangeValue: [],
       pickerValue: [],
       pickerValueArrayChange: true,
+      pickerValueSingleArray: [],
+      pickerValueMulArray: [],
       pickerValueMulTwoOne: [],
       pickerValueMulTwoTwo: [],
       pickerValueMulThreeOne: [],
@@ -95,10 +97,14 @@ export default {
   },
   methods: {
     initPicker(valueArray) {
-      this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
+      this.pickerValue = this.pickerValueDefault;
       // 初始化多级联动
-      if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 两级联动
+      if (this.mode === 'selector') {
+        this.pickerValueSingleArray = valueArray;
+      } else if (this.mode === 'multiSelector') {
+        this.pickerValueMulArray = valueArray;
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 两级联动
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
         // 第一列
