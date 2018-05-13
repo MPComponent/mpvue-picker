@@ -4,4 +4,5 @@
 
 ![GitHub package version](https://img.shields.io/github/package-json/v/KuangPF/mpvue-picker.svg)
 
-开发中...
+## 前言
+前段时间

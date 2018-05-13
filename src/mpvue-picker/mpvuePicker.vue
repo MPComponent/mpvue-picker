@@ -6,21 +6,21 @@
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="!isMul && !isMulLinkage">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='selector'">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index1) in pickerValueArray" :key="index1">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="isMul">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
         <block v-for="(n,index1) in pickerValueArray.length" :key="index1">
           <picker-view-column>
             <div class="picker-item" v-for="(item,index2) in pickerValueArray[n]" :key="index2">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMulLinkage && deepLength===2">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===2">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
@@ -30,7 +30,7 @@
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="isMulLinkage && deepLength===3">
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===3">
         <block>
           <picker-view-column>
             <div class="picker-item" v-for="(item,index5) in pickerValueMulThreeOne" :key="index5">{{item}}</div>
@@ -62,6 +62,11 @@ export default {
     };
   },
   props: {
+    /* mode */
+    mode: {
+      type: String,
+      default: 'selector'
+    },
     /* 是否显示控件 */
     showPicker: {
       type: Boolean,
@@ -76,16 +81,6 @@ export default {
     pickerValueDefault: {
       type: Array,
       default: []
-    },
-    /* 是否为多列 */
-    isMul: {
-      type: Boolean,
-      default: false
-    },
-    /* 是否为级联 */
-    isMulLinkage: {
-      type: Boolean,
-      default: false
     },
     /* 几级联动 */
     deepLength: {
@@ -103,7 +98,7 @@ export default {
       this.pickerValue = this.pickerValueDefault;
       let pickerValueArray = valueArray;
       // 初始化多级联动
-      if (this.isMulLinkage && this.deepLength === 2) { // 两级联动
+      if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 两级联动
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
         // 第一列
@@ -124,7 +119,7 @@ export default {
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      } else if (this.isMulLinkage && this.deepLength === 3) {
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) {
         let pickerValueMulThreeOne = [];
         let pickerValueMulThreeTwo = [];
         let pickerValueMulThreeThree = [];
