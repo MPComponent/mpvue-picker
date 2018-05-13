@@ -60,6 +60,13 @@ export default {
 
 在父组件中调用 ` mpvuePicker` 实例中的 `show` 方法即可
 
+## 效果
+
+![mpvue-picker-demo01](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker01.gif)
+![mpvue-picker-demo02](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker02.gif)
+![mpvue-picker-demo03](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker03.gif)
+![mpvue-picker-demo04](https://github.com/KuangPF/mpvue-picker/tree/master/src/pages/img/picker04.gif)
+
 ## 参数
 
 | 参数        | 说明                      | 类型      | 可选值  | 是否必须    | 默认值    |
