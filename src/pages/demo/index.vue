@@ -11,7 +11,7 @@
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
     </div>
-    <mpvue-picker ref="mpvuePicker" :mode="mode" :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @pickerConfirm="pickerConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :mode="mode" :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @onConfirm="onConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -202,7 +202,7 @@ export default {
     showPickerView() {
       this.$refs.mpvuePicker.show();
     },
-    pickerConfirm(e) {
+    onConfirm(e) {
       if (this.mode === 'selector') {
         this.pickerText = this.pickerValueArray[e[0]];
       } else if (this.mode === 'multiSelector') {

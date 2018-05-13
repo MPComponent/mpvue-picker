@@ -87,7 +87,7 @@ export default {
     /* 几级联动 */
     deepLength: {
       type: Number,
-      default: 0
+      default: 2
     }
   },
   watch: {
@@ -181,7 +181,7 @@ export default {
           this.pickerValue = [0, 0, 0];
         }
       }
-      this.$emit('pickerConfirm', this.pickerValue);
+      this.$emit('onConfirm', this.pickerValue);
     },
     showPickerView() {
       this.showPicker = true;
