@@ -205,7 +205,12 @@ export default {
     pickerConfirm(e) {
       if (this.mode === 'selector') {
         this.pickerText = this.pickerValueArray[e[0]];
-        console.log(this.pickerValueArray[e]);
+      } else if (this.mode === 'multiSelector') {
+        this.pickerText = `${this.pickerValueArray[0][e[0]]} - ${this.pickerValueArray[1][e[1]]} - ${this.pickerValueArray[2][e[2]]}`;
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) {
+        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${this.pickerValueArray[e[0]].children[e[1]].label}`;
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) {
+        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${this.pickerValueArray[e[0]].children[e[1]].label}- ${this.pickerValueArray[e[0]].children[e[1]].children[e[2]].label}`;
       }
       console.log(e);
     }
