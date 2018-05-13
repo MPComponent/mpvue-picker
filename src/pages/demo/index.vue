@@ -173,7 +173,7 @@ export default {
     showSinglePicker() {
       this.pickerValueArray = this.pickerSingleArray;
       this.mode = 'selector';
-      this.pickerValueDefault = [1];
+      // this.pickerValueDefault = [1];
       this.$refs.mpvuePicker.show();
     },
     // 多列选择

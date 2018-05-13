@@ -170,6 +170,17 @@ export default {
     },
     pickerConfirm(e) {
       this.showPicker = false;
+      if (this.pickerValue.length === 0) {
+        if (this.mode === 'selector') {
+          this.pickerValue = [0];
+        } else if (this.mode === 'multiSelector') {
+          this.pickerValue = new Int8Array(this.pickerValueArray.length);
+        } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) {
+          this.pickerValue = [0, 0];
+        } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) {
+          this.pickerValue = [0, 0, 0];
+        }
+      }
       this.$emit('pickerConfirm', this.pickerValue);
     },
     showPickerView() {
