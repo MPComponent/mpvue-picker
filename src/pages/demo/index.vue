@@ -2,6 +2,8 @@
   <div class="mvpue-picker">
     <div class="page-hd">
       <div class="page-title">mvpue-picker 示例</div>
+      <div class="page__desc">选中的值:</div>
+      <div class="picker-text">{{pickerText}}</div>
     </div>
     <div class="page-bd">
       <button type="default" @click="showSinglePicker">单列选择</button>
@@ -26,6 +28,7 @@ export default {
       deepLength: 0, // 几级联动
       pickerValueDefault: [], // 初始化值
       pickerValueArray: [], // picker 数组值
+      pickerText: '',
       pickerSingleArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助'],
       pickerMulArray: [
         ['中国', '美国', '日本', '俄罗斯'],
@@ -170,6 +173,7 @@ export default {
     showSinglePicker() {
       this.pickerValueArray = this.pickerSingleArray;
       this.mode = 'selector';
+      this.pickerValueDefault = 1;
       this.$refs.mpvuePicker.show();
     },
     // 多列选择
@@ -198,6 +202,10 @@ export default {
       this.$refs.mpvuePicker.show();
     },
     pickerConfirm(e) {
+      if (this.mode === 'selector') {
+        this.pickerText = this.pickerValueArray[e[0]];
+        console.log(this.pickerValueArray[e]);
+      }
       console.log(e);
     }
   }
@@ -214,6 +222,10 @@ export default {
 }
 .page-bd {
   padding: 15px;
+}
+.picker-text,
+.page__desc {
+  margin-top: 10px;
 }
 button {
   margin-top: 15px;
