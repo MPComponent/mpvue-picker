@@ -2,7 +2,7 @@
   "name": "mpvue-picker",
   "version": "1.0.2",
   "description": "基于 mpvue 框架的小程序选择控件",
-  "main": "src/mpvue-picker/mpvue-picker.vue",
+  "main": "src/mpvue-picker/mpvuePicker.vue",
   "author": "kuangpengfei <1633397286@qq.com>",
   "private": false,
   "scripts": {
@@ -12,8 +12,7 @@
     "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
-    "mpvue": "^1.0.10",
-    "mpvue-picker": "^1.0.1"
+    "mpvue": "^1.0.11"
   },
   "devDependencies": {
     "mpvue-loader": "^1.0.13",
