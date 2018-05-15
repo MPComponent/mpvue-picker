@@ -5,6 +5,11 @@
   "main": "src/mpvue-picker/mpvuePicker.vue",
   "author": "kuangpengfei <1633397286@qq.com>",
   "private": false,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/KuangPF/mpvue-picker"
+  },
+  "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",

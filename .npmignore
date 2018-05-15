@@ -1,0 +1,11 @@
+build/
+config/
+dist/
+node_modules/
+static/
+project.config.json
+.babelrc
+.editorconfig
+.eslintignore
+.eslintrc
+.postcssrc
