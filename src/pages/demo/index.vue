@@ -7,6 +7,7 @@
     </div>
     <div class="page-bd">
       <button type="default" @click="showSinglePicker">单列选择</button>
+      <button type="default" @click="showTimePicker">时间选择</button>
       <button type="default" @click="showMulPicker">多列选择</button>
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
@@ -174,6 +175,12 @@ export default {
       this.pickerValueArray = this.pickerSingleArray;
       this.mode = 'selector';
       // this.pickerValueDefault = [1];
+      this.$refs.mpvuePicker.show();
+    },
+    // 时间选择
+    showTimePicker() {
+      this.mode = 'timeSelector';
+      this.pickerValueDefault = [1, 2];
       this.$refs.mpvuePicker.show();
     },
     // 多列选择

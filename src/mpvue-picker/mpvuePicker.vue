@@ -6,47 +6,55 @@
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
+      <!-- 单列 -->
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='selector' && pickerValueSingleArray.length > 0">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index1) in pickerValueSingleArray" :key="index1">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueSingleArray" :key="index">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='timeSelector' && pickerValueSingleArray.length > 0">
+      <!-- 时间选择器 -->
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='timeSelector'">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index1) in pickerValueSingleArray" :key="index1">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueHour" :key="index">{{item}}</div>
           </picker-view-column>
-        </block>
-      </picker-view>
-      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
-        <block v-for="(n,index1) in pickerValueMulArray.length" :key="index1">
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index2) in pickerValueMulArray[n]" :key="index2">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMinute" :key="index">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
+      <!-- 多列选择 -->
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
+        <block v-for="(n,index) in pickerValueMulArray.length" :key="index">
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index1) in pickerValueMulArray[n]" :key="index1">{{item}}</div>
+          </picker-view-column>
+        </block>
+      </picker-view>
+      <!-- 二级联动 -->
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===2">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index3) in pickerValueMulTwoOne" :key="index3">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoOne" :key="index">{{item}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index4) in pickerValueMulTwoTwo" :key="index4">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoTwo" :key="index">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
+      <!-- 三级联动 -->
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===3">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index5) in pickerValueMulThreeOne" :key="index5">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeOne" :key="index">{{item}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index6) in pickerValueMulThreeTwo" :key="index6">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeTwo" :key="index">{{item}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index7) in pickerValueMulThreeThree" :key="index7">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeThree" :key="index">{{item}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -62,6 +70,8 @@ export default {
       pickerValue: [],
       pickerValueArrayChange: true,
       pickerValueSingleArray: [],
+      pickerValueHour: [],
+      pickerValueMinute: [],
       pickerValueMulArray: [],
       pickerValueMulTwoOne: [],
       pickerValueMulTwoTwo: [],
@@ -109,6 +119,17 @@ export default {
       // 初始化多级联动
       if (this.mode === 'selector') {
         this.pickerValueSingleArray = valueArray;
+      } else if (this.mode === 'timeSelector') {
+        let hourArray = [];
+        let minuteArray = [];
+        for (let i = 0; i < 24; i++) {
+          hourArray.push(i > 9 ? `${i} 时` : `0${i} 时`);
+        }
+        for (let i = 0; i < 60; i++) {
+          minuteArray.push(i > 9 ? `${i} 分` : `0${i} 分`);
+        }
+        this.pickerValueHour = hourArray;
+        this.pickerValueMinute = minuteArray;
       } else if (this.mode === 'multiSelector') {
         this.pickerValueMulArray = valueArray;
       } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 两级联动
