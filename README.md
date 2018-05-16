@@ -23,6 +23,7 @@
 ``` bash
 npm install mpvue-picker --save 或者 cnpm install mpvue-picker --save
 ```
+
 * 在页面中使用
 ``` javascript
 <template>
@@ -60,6 +61,7 @@ export default {
 </style>
 
 ```
+
 * 初始化
 
 在父组件中调用 ` mpvuePicker` 实例中的 `show` 方法即可
@@ -286,6 +288,10 @@ pickerValueArray:
 ## 相关说明
 
 对于多级联动，由于没有动态添加 picker 列数以及动态渲染其值，因此目前只支持 二级联动和三级联动。
+
+## 版本日志
+
+[version logs](https://github.com/KuangPF/mpvue-picker/releases)
 
 ## TODO
 
