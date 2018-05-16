@@ -78,6 +78,7 @@ export default {
 * 类型：String
 * 可选值：
     * selector（单列） 
+    * timeSelector（时间选择）
     * multiSelector（多列） 
     * multiLinkageSelector（级联）
 * 是否必填： 否
@@ -87,7 +88,7 @@ export default {
 * 说明：picker 渲染数据
 * 类型：Array
 * 可选值：-
-* 是否必填： 是
+* 是否必填： 是（当 mode 值为 timeSelector 不用填）
 * 默认值：-
 
 ### pickerValueDefault
@@ -288,6 +289,5 @@ pickerValueArray:
 
 ## TODO
 
-* 增加时间选择 mode 
 * 增加日期选择 mode
 * 增加城市选择 mode
