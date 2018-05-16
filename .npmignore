@@ -7,5 +7,6 @@ project.config.json
 .babelrc
 .editorconfig
 .eslintignore
-.eslintrc
-.postcssrc
+.eslintrc.js
+.postcssrc.js
+index.html
