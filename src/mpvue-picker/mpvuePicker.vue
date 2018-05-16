@@ -13,6 +13,13 @@
           </picker-view-column>
         </block>
       </picker-view>
+      <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='timeSelector' && pickerValueSingleArray.length > 0">
+        <block>
+          <picker-view-column>
+            <div class="picker-item" v-for="(item,index1) in pickerValueSingleArray" :key="index1">{{item}}</div>
+          </picker-view-column>
+        </block>
+      </picker-view>
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
         <block v-for="(n,index1) in pickerValueMulArray.length" :key="index1">
           <picker-view-column>
