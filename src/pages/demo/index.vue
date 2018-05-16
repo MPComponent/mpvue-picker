@@ -212,6 +212,17 @@ export default {
     onConfirm(e) {
       if (this.mode === 'selector') {
         this.pickerText = this.pickerValueArray[e[0]];
+      } else if (this.mode === 'timeSelector') {
+        let hourArray = [];
+        let minuteArray = [];
+        for (let i = 0; i < 24; i++) {
+          hourArray.push(i > 9 ? `${i} 时` : `0${i} 时`);
+        }
+        for (let i = 0; i < 60; i++) {
+          minuteArray.push(i > 9 ? `${i} 分` : `0${i} 分`);
+        }
+        console.log(e);
+        this.pickerText = `${hourArray[e[0]]}-${minuteArray[e[1]]}`;
       } else if (this.mode === 'multiSelector') {
         this.pickerText = `${this.pickerValueArray[0][e[0]]} - ${this.pickerValueArray[1][e[1]]} - ${this.pickerValueArray[2][e[2]]}`;
       } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) {
