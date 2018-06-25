@@ -29,7 +29,7 @@ npm install mpvue-picker --save 或者 cnpm install mpvue-picker --save
 <template>
   <div class="mpvue-picer">
     <button @click="showPicker">test for mpvuePicker</button>
-    <mpvue-picker ref="mpvuePicker" :pickerValueArray="pickerValueArray" :pickerValueDefault='pickerValueDefault' @pickerConfirm="pickerConfirm"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :pickerValueArray="pickerValueArray" :pickerValueDefault='pickerValueDefault' @onConfirm="onConfirm"></mpvue-picker>
   </div>
 </template>
 
@@ -49,7 +49,7 @@ export default {
     showPicker() {
       this.$refs.mpvuePicker.show();
     },
-    pickerConfirm(e) {
+    onConfirm(e) {
       console.log(e);
     }
   }
