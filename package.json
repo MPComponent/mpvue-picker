@@ -9,6 +9,9 @@
     "type": "git",
     "url": "https://github.com/KuangPF/mpvue-picker"
   },
+  "files": [
+    "src/mpvue-picker/mpvuePicker.vue"
+  ],
   "license": "MIT",
   "scripts": {
     "dev": "node build/dev-server.js",

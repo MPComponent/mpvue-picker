@@ -12,7 +12,7 @@
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
     </div>
-    <mpvue-picker ref="mpvuePicker" :mode="mode" :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @onConfirm="onConfirm" @pickerCancel="pickerCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :mode="mode" :deepLength=deepLength :pickerValueDefault="pickerValueDefault" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -30,7 +30,24 @@ export default {
       pickerValueDefault: [], // 初始化值
       pickerValueArray: [], // picker 数组值
       pickerText: '',
-      pickerSingleArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助'],
+      pickerSingleArray: [
+        {
+          label: '住宿费',
+          value: 1
+        },
+        {
+          label: '活动费',
+          value: 2
+        },
+        {
+          label: '通讯费',
+          value: 3
+        },
+        {
+          label: '补助',
+          value: 4
+        }
+      ],
       pickerMulArray: [
         ['中国', '美国', '日本', '俄罗斯'],
         ['茶', '咖啡', '寿司', '奶酪'],
@@ -40,44 +57,47 @@ export default {
         {
           label: '飞机票',
           value: 0,
-          children: [{
-            label: '经济舱',
-            value: 1
-          },
-          {
-            label: '商务舱',
-            value: 2
-          }
+          children: [
+            {
+              label: '经济舱',
+              value: 1
+            },
+            {
+              label: '商务舱',
+              value: 2
+            }
           ]
         },
         {
           label: '火车票',
           value: 1,
-          children: [{
-            label: '卧铺',
-            value: 1
-          },
-          {
-            label: '坐票',
-            value: 2
-          },
-          {
-            label: '站票',
-            value: 3
-          }
+          children: [
+            {
+              label: '卧铺',
+              value: 1
+            },
+            {
+              label: '坐票',
+              value: 2
+            },
+            {
+              label: '站票',
+              value: 3
+            }
           ]
         },
         {
           label: '汽车票',
           value: 3,
-          children: [{
-            label: '快班',
-            value: 1
-          },
-          {
-            label: '普通',
-            value: 2
-          }
+          children: [
+            {
+              label: '快班',
+              value: 1
+            },
+            {
+              label: '普通',
+              value: 2
+            }
           ]
         }
       ],
@@ -89,17 +109,20 @@ export default {
             {
               label: 'iphone',
               value: 1,
-              children: [{
-                label: 'iphoneX',
-                value: 1
-              },
-              {
-                label: 'iphone8',
-                value: 2
-              }, {
-                label: 'iphone8 Plus',
-                value: 3
-              }]
+              children: [
+                {
+                  label: 'iphoneX',
+                  value: 1
+                },
+                {
+                  label: 'iphone8',
+                  value: 2
+                },
+                {
+                  label: 'iphone8 Plus',
+                  value: 3
+                }
+              ]
             },
             {
               label: 'android',
@@ -112,7 +135,8 @@ export default {
                 {
                   label: '魅族',
                   value: 2
-                }, {
+                },
+                {
                   label: '小米',
                   value: 3
                 }
@@ -135,10 +159,12 @@ export default {
                 {
                   label: 'iMac',
                   value: 2
-                }, {
+                },
+                {
                   label: 'mackbook',
                   value: 3
-                }, {
+                },
+                {
                   label: 'mackbook air',
                   value: 3
                 }
@@ -155,7 +181,8 @@ export default {
                 {
                   label: 'surface',
                   value: 2
-                }, {
+                },
+                {
                   label: 'thinkpad',
                   value: 3
                 }
@@ -168,6 +195,9 @@ export default {
   },
   methods: {
     onChange(e) {
+      console.log(e);
+    },
+    onCancel(e) {
       console.log(e);
     },
     // 单列
@@ -224,11 +254,23 @@ export default {
         console.log(e);
         this.pickerText = `${hourArray[e[0]]}-${minuteArray[e[1]]}`;
       } else if (this.mode === 'multiSelector') {
-        this.pickerText = `${this.pickerValueArray[0][e[0]]} - ${this.pickerValueArray[1][e[1]]} - ${this.pickerValueArray[2][e[2]]}`;
-      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) {
-        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${this.pickerValueArray[e[0]].children[e[1]].label}`;
-      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) {
-        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${this.pickerValueArray[e[0]].children[e[1]].label}- ${this.pickerValueArray[e[0]].children[e[1]].children[e[2]].label}`;
+        this.pickerText = `${this.pickerValueArray[0][e[0]]} - ${
+          this.pickerValueArray[1][e[1]]
+        } - ${this.pickerValueArray[2][e[2]]}`;
+      } else if (
+        this.mode === 'multiLinkageSelector' &&
+        this.deepLength === 2
+      ) {
+        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${
+          this.pickerValueArray[e[0]].children[e[1]].label
+        }`;
+      } else if (
+        this.mode === 'multiLinkageSelector' &&
+        this.deepLength === 3
+      ) {
+        this.pickerText = `${this.pickerValueArray[e[0]].label} - ${
+          this.pickerValueArray[e[0]].children[e[1]].label
+        }- ${this.pickerValueArray[e[0]].children[e[1]].children[e[2]].label}`;
       }
       console.log(e);
     }
