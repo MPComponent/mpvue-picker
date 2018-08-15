@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import mpvuePicker from 'mpvue-picker';
+import mpvuePicker from '@/mpvue-picker/mpvuePicker.vue';
 export default {
   components: {
     mpvuePicker

@@ -1,0 +1,12 @@
+{
+  "pages": [
+    "pages/demo/main",
+    "pages/test/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "mpvue-picker",
+    "navigationBarTextStyle": "black"
+  }
+}
