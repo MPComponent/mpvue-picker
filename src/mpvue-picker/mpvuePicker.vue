@@ -29,7 +29,7 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
         <block v-for="(n,index) in pickerValueMulArray.length" :key="index">
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index1) in pickerValueMulArray[n]" :key="index1">{{item}}</div>
+            <div class="picker-item" v-for="(item,index1) in pickerValueMulArray[n]" :key="index1">{{item.label}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -119,7 +119,6 @@ export default {
       // 初始化多级联动
       if (this.mode === 'selector') {
         this.pickerValueSingleArray = valueArray;
-        console.log(this.pickerValueSingleArray);
       } else if (this.mode === 'timeSelector') {
         let hourArray = [];
         let minuteArray = [];
@@ -350,6 +349,16 @@ export default {
         piclerLable = `${this.pickerValueHour[value[0]].label}-${
           this.pickerValueMinute[value[1]].label
         }`;
+      } else if (mode === 'multiSelector') {
+        for (let i = 0; i < value.length; i++) {
+          if (i > 0) {
+            piclerLable +=
+              this.pickerValueMulArray[i][value[i]].label +
+              (i === value.length - 1 ? '' : '-');
+          } else {
+            piclerLable = this.pickerValueMulArray[i][value[i]].label + '-';
+          }
+        }
       }
       return piclerLable;
     },

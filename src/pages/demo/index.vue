@@ -49,9 +49,24 @@ export default {
         }
       ],
       pickerMulArray: [
-        ['中国', '美国', '日本', '俄罗斯'],
-        ['茶', '咖啡', '寿司', '奶酪'],
-        ['歼20', 'F22', '秋月级', 'T50']
+        [
+          { label: '中国', value: 1 },
+          { label: '美国', value: 2 },
+          { label: '日本', value: 3 },
+          { label: '俄罗斯', value: 4 }
+        ],
+        [
+          { label: '茶', value: 1 },
+          { label: '咖啡', value: 2 },
+          { label: '寿司', value: 3 },
+          { label: '奶酪', value: 4 }
+        ],
+        [
+          { label: '歼20', value: 1 },
+          { label: 'F22', value: 2 },
+          { label: '秋月级', value: 3 },
+          { label: 'T50', value: 4 }
+        ]
       ],
       mulLinkageTwoPicker: [
         {
