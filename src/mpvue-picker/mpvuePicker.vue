@@ -18,10 +18,10 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='timeSelector'">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueHour" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueHour" :key="index">{{item.label}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMinute" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMinute" :key="index">{{item.label}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -124,10 +124,16 @@ export default {
         let hourArray = [];
         let minuteArray = [];
         for (let i = 0; i < 24; i++) {
-          hourArray.push(i > 9 ? `${i} 时` : `0${i} 时`);
+          hourArray.push({
+            value: i,
+            label: i > 9 ? `${i} 时` : `0${i} 时`
+          });
         }
         for (let i = 0; i < 60; i++) {
-          minuteArray.push(i > 9 ? `${i} 分` : `0${i} 分`);
+          minuteArray.push({
+            value: i,
+            label: i > 9 ? `${i} 分` : `0${i} 分`
+          });
         }
         this.pickerValueHour = hourArray;
         this.pickerValueMinute = minuteArray;
@@ -340,6 +346,10 @@ export default {
       // selector
       if (mode === 'selector') {
         piclerLable = this.pickerValueSingleArray[value].label;
+      } else if (mode === 'timeSelector') {
+        piclerLable = `${this.pickerValueHour[value[0]].label}-${
+          this.pickerValueMinute[value[1]].label
+        }`;
       }
       return piclerLable;
     },
