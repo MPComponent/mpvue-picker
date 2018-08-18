@@ -37,10 +37,10 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===2">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoOne" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoOne" :key="index">{{item.label}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoTwo" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulTwoTwo" :key="index">{{item.label}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -48,13 +48,13 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChangeMul" v-if="mode==='multiLinkageSelector' && deepLength===3">
         <block>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeOne" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeOne" :key="index">{{item.label}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeTwo" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeTwo" :key="index">{{item.label}}</div>
           </picker-view-column>
           <picker-view-column>
-            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeThree" :key="index">{{item}}</div>
+            <div class="picker-item" v-for="(item,index) in pickerValueMulThreeThree" :key="index">{{item.label}}</div>
           </picker-view-column>
         </block>
       </picker-view>
@@ -69,6 +69,7 @@ export default {
       pickerChangeValue: [],
       pickerValue: [],
       pickerValueArrayChange: true,
+      modeChange: false,
       pickerValueSingleArray: [],
       pickerValueHour: [],
       pickerValueMinute: [],
@@ -110,6 +111,9 @@ export default {
   watch: {
     pickerValueArray(oldVal, newVal) {
       this.pickerValueArrayChange = true;
+    },
+    mode(oldVal, newVal) {
+      this.modeChange = true;
     }
   },
   methods: {
@@ -120,6 +124,7 @@ export default {
       if (this.mode === 'selector') {
         this.pickerValueSingleArray = valueArray;
       } else if (this.mode === 'timeSelector') {
+        this.modeChange = false;
         let hourArray = [];
         let minuteArray = [];
         for (let i = 0; i < 24; i++) {
@@ -147,7 +152,7 @@ export default {
         let pickerValueMulTwoTwo = [];
         // 第一列
         for (let i = 0, length = pickerValueArray.length; i < length; i++) {
-          pickerValueMulTwoOne.push(pickerValueArray[i].label);
+          pickerValueMulTwoOne.push(pickerValueArray[i]);
         }
         // 渲染第二列
         // 如果有设定的默认值
@@ -158,7 +163,7 @@ export default {
             i < length;
             i++
           ) {
-            pickerValueMulTwoTwo.push(pickerValueArray[num].children[i].label);
+            pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
           }
         } else {
           for (
@@ -166,7 +171,7 @@ export default {
             i < length;
             i++
           ) {
-            pickerValueMulTwoTwo.push(pickerValueArray[0].children[i].label);
+            pickerValueMulTwoTwo.push(pickerValueArray[0].children[i]);
           }
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
@@ -180,7 +185,7 @@ export default {
         let pickerValueMulThreeThree = [];
         // 第一列
         for (let i = 0, length = pickerValueArray.length; i < length; i++) {
-          pickerValueMulThreeOne.push(pickerValueArray[i].label);
+          pickerValueMulThreeOne.push(pickerValueArray[i]);
         }
         // 渲染第二列
         this.pickerValueDefault =
@@ -194,9 +199,7 @@ export default {
             i < length;
             i++
           ) {
-            pickerValueMulThreeTwo.push(
-              pickerValueArray[num].children[i].label
-            );
+            pickerValueMulThreeTwo.push(pickerValueArray[num].children[i]);
           }
           // 第三列
           let numSecond = this.pickerValueDefault[1];
@@ -208,7 +211,7 @@ export default {
             i++
           ) {
             pickerValueMulThreeThree.push(
-              pickerValueArray[num].children[numSecond].children[i].label
+              pickerValueArray[num].children[numSecond].children[i]
             );
           }
         }
@@ -219,10 +222,11 @@ export default {
     },
     show() {
       setTimeout(() => {
-        if (this.pickerValueArrayChange) {
+        if (this.pickerValueArrayChange || this.modeChange) {
           this.initPicker(this.pickerValueArray);
           this.showPicker = true;
           this.pickerValueArrayChange = false;
+          this.modeChange = false;
         } else {
           this.showPicker = true;
         }
@@ -272,8 +276,13 @@ export default {
           i++
         ) {
           pickerValueMulTwoTwo.push(
-            pickerValueArray[changeValue[0]].children[i].label
+            pickerValueArray[changeValue[0]].children[i]
           );
+        }
+        // 第一级不等于第二级
+        if (changeValue[0] !== this.pickerValue[0]) {
+          // 第二列初始化为 1
+          changeValue[1] = 0;
         }
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
         this.pickerValue = changeValue;
@@ -293,7 +302,7 @@ export default {
             i++
           ) {
             pickerValueMulThreeTwo.push(
-              pickerValueArray[changeValue[0]].children[i].label
+              pickerValueArray[changeValue[0]].children[i]
             );
           }
           // 重新渲染第三列
@@ -307,9 +316,11 @@ export default {
           ) {
             pickerValueMulThreeThree.push(
               pickerValueArray[changeValue[0]].children[changeValue[1]]
-                .children[i].label
+                .children[i]
             );
           }
+          changeValue[1] = 0;
+          changeValue[2] = 0;
         } else {
           // 第二列滚动
           // 重新渲染第三列
@@ -325,8 +336,11 @@ export default {
           ) {
             pickerValueMulThreeThree.push(
               pickerValueArray[changeValue[0]].children[changeValue[1]]
-                .children[i].label
+                .children[i]
             );
+          }
+          if (changeValue[1] !== this.pickerValue[1]) {
+            changeValue[2] = 0;
           }
         }
         this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
@@ -363,12 +377,12 @@ export default {
         /* eslint-disable indent */
         pickerLable =
           this.deepLength === 2
-            ? `${this.pickerValueMulTwoOne[value[0]]}-${
-                this.pickerValueMulTwoTwo[value[1]]
+            ? `${this.pickerValueMulTwoOne[value[0]].label}-${
+                this.pickerValueMulTwoTwo[value[1]].label
               }`
-            : `${this.pickerValueMulThreeOne[value[0]]}-${
-                this.pickerValueMulThreeTwo[value[1]]
-              }-${this.pickerValueMulThreeThree[value[2]]}`;
+            : `${this.pickerValueMulThreeOne[value[0]].label}-${
+                this.pickerValueMulThreeTwo[value[1]].label
+              }-${this.pickerValueMulThreeThree[value[2]].label}`;
         /* eslint-enable indent */
       }
       return pickerLable;
