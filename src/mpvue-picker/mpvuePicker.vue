@@ -341,26 +341,37 @@ export default {
     },
     // 获取 pxikerLabel
     _getPickerLabel(value, mode) {
-      let piclerLable;
+      let pickerLable;
       // selector
       if (mode === 'selector') {
-        piclerLable = this.pickerValueSingleArray[value].label;
+        pickerLable = this.pickerValueSingleArray[value].label;
       } else if (mode === 'timeSelector') {
-        piclerLable = `${this.pickerValueHour[value[0]].label}-${
+        pickerLable = `${this.pickerValueHour[value[0]].label}-${
           this.pickerValueMinute[value[1]].label
         }`;
       } else if (mode === 'multiSelector') {
         for (let i = 0; i < value.length; i++) {
           if (i > 0) {
-            piclerLable +=
+            pickerLable +=
               this.pickerValueMulArray[i][value[i]].label +
               (i === value.length - 1 ? '' : '-');
           } else {
-            piclerLable = this.pickerValueMulArray[i][value[i]].label + '-';
+            pickerLable = this.pickerValueMulArray[i][value[i]].label + '-';
           }
         }
+      } else if (mode === 'multiLinkageSelector') {
+        /* eslint-disable indent */
+        pickerLable =
+          this.deepLength === 2
+            ? `${this.pickerValueMulTwoOne[value[0]]}-${
+                this.pickerValueMulTwoTwo[value[1]]
+              }`
+            : `${this.pickerValueMulThreeOne[value[0]]}-${
+                this.pickerValueMulThreeTwo[value[1]]
+              }-${this.pickerValueMulThreeThree[value[2]]}`;
+        /* eslint-enable indent */
       }
-      return piclerLable;
+      return pickerLable;
     },
     // 初始化 pickerValue 默认值
     _initPickerVale() {
