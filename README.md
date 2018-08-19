@@ -1,7 +1,11 @@
 # mpvue-picker
 
 > 基于 mpvue 框架的小程序选择控件
+
 > 支持单列、多列以及级联
+
+> 目前版本为 v2.0.1，v1.x.x 使用请[点击](./README_1.x.x.md)
+
 
 ![npm version](https://img.shields.io/npm/v/mpvue-picker.svg?style=flat)
 ![download](https://img.shields.io/npm/dm/mpvue-picker.svg?style=flat)
@@ -137,19 +141,25 @@ this.$refs.mpvuePicker.show();
 * 默认值：2
 
 ### onChange
-* 说明：picer 组件滚动时回调，返回选中的数组索引
+* 说明：picer 组件滚动时回调，返回选中的返回 label 和 value 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
 ### onConfirm
-* 说明：picer 组件点击确定时回调，返回选中的数组索引
+* 说明：picer 组件点击确定时回调，返回选中的返回 label 和 value 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
+### onCancel
+* 说明：picer 组件点击取消时回调，返回选中的返回 label 和 value 的值
+* 类型：EventHandle
+* 可选值：-
+* 是否必填： 否
+* 默认值：-
 
 ## 相关数据结构说明
 
