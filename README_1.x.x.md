@@ -21,7 +21,7 @@
 
 * 安装
 ``` bash
-npm install mpvue-picker --save
+npm install mpvue-picker --save 或者 cnpm install mpvue-picker --save
 ```
 
 * 在页面中使用
@@ -29,7 +29,7 @@ npm install mpvue-picker --save
 <template>
   <div class="mpvue-picer">
     <button @click="showPicker">test for mpvuePicker</button>
-    <mpvue-picker ref="mpvuePicker" :mode="mode" :pickerValueDefault="pickerValueDefault" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :pickerValueArray="pickerValueArray" :pickerValueDefault='pickerValueDefault' @onConfirm="onConfirm"></mpvue-picker>
   </div>
 </template>
 
@@ -41,25 +41,7 @@ export default {
   },
   data() {
     return {
-      mode: 'selector',
-      pickerValueArray: [
-        {
-          label: '住宿费',
-          value: 1
-        },
-        {
-          label: '活动费',
-          value: 2
-        },
-        {
-          label: '通讯费',
-          value: 3
-        },
-        {
-          label: '补助',
-          value: 4
-        }
-      ],
+      pickerValueArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助'],
       pickerValueDefault: [1]
     };
   },
@@ -68,12 +50,6 @@ export default {
       this.$refs.mpvuePicker.show();
     },
     onConfirm(e) {
-      console.log(e);
-    },
-    onChange(e) {
-      console.log(e);
-    },
-    onCancel(e) {
       console.log(e);
     }
   }
@@ -85,14 +61,10 @@ export default {
 </style>
 
 ```
-* [更多 demo](https://github.com/KuangPF/mpvue-picker/blob/master/src/pages/demo/index.vue)
+
 * 初始化
 
 在父组件中调用 ` mpvuePicker` 实例中的 `show` 方法即可
-
-``` javascript
-this.$refs.mpvuePicker.show();
-```
 
 ## 效果
 
@@ -125,7 +97,7 @@ this.$refs.mpvuePicker.show();
 * 说明：picker 默认选中值 
 * 类型：Array
 * 可选值：-
-* 是否必填： 否 (当同一个组件使用多种 mode 来回切换使用是时 pickerValueDefault 必填)
+* 是否必填： 否
 * 默认值：[]
  
 ### deepLength
@@ -155,61 +127,20 @@ this.$refs.mpvuePicker.show();
 ## 相关数据结构说明
 
 #### **单列**
-<details>
-<summary>点击展开单列数据结构</summary>
 
 ``` javascript
-pickerValueArray: [
-  {
-    label: '住宿费',
-    value: 1
-  },
-  {
-    label: '活动费',
-    value: 2
-  },
-  {
-    label: '通讯费',
-    value: 3
-  },
-  {
-    label: '补助',
-    value: 4
-  }
-],
+pickerValueArray: ['住宿费', '礼品费', '活动费', '通讯费', '补助']
 ```
-</details>
-
 
 #### **多列**
-<details>
-<summary>点击展开多列数据结构</summary>
-
 ``` javascript
-pickerMulArray: [
-  [
-    { label: '中国', value: 1 },
-    { label: '美国', value: 2 },
-    { label: '日本', value: 3 },
-    { label: '俄罗斯', value: 4 }
-  ],
-  [
-    { label: '茶', value: 1 },
-    { label: '咖啡', value: 2 },
-    { label: '寿司', value: 3 },
-    { label: '奶酪', value: 4 }
-  ],
-  [
-    { label: '歼20', value: 1 },
-    { label: 'F22', value: 2 },
-    { label: '秋月级', value: 3 },
-    { label: 'T50', value: 4 }
-  ]
+pickerValueArray: [
+  ['中国', '美国', '日本', '俄罗斯'],
+  ['茶', '咖啡', '寿司', '奶酪'],
+  ['歼20', 'F22', '秋月级', 'T50']
 ]
 ```
-</details>
 
-#### **二级联动**
 <details>
 <summary>点击展开二级联动数据结构</summary>
 
@@ -263,8 +194,6 @@ pickerValueArray:
 ```
 </details>
 
-
-#### **三级联动**
 <details>
 <summary>点击展开三级联动数据结构</summary>
 
@@ -356,16 +285,13 @@ pickerValueArray:
 ```
 </details>
 
-
 ## 相关说明
 
 对于多级联动，由于没有动态添加 picker 列数以及动态渲染其值，因此目前只支持 二级联动和三级联动。
 
-
 ## 版本日志
 
 [version logs](https://github.com/KuangPF/mpvue-picker/releases)
-
 
 ## TODO
 

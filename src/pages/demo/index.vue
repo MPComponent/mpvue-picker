@@ -219,7 +219,7 @@ export default {
     showSinglePicker() {
       this.pickerValueArray = this.pickerSingleArray;
       this.mode = 'selector';
-      // this.pickerValueDefault = [1];
+      this.pickerValueDefault = [];
       this.$refs.mpvuePicker.show();
     },
     // 时间选择
