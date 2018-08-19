@@ -4,7 +4,6 @@
 > 支持单列、多列以及级联
 
 ![npm version](https://img.shields.io/npm/v/mpvue-picker.svg?style=flat)
-![GitHub package version](https://img.shields.io/github/package-json/v/KuangPF/mpvue-picker.svg)
 ![download](https://img.shields.io/npm/dm/mpvue-picker.svg?style=flat)
 ![license](https://img.shields.io/github/license/KuangPF/mpvue-picker.svg)
 
