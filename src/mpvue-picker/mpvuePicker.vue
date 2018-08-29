@@ -268,23 +268,24 @@ export default {
       if (this.deepLength === 2) {
         let pickerValueArray = this.pickerValueArray;
         let changeValue = e.mp.detail.value;
-        let pickerValueMulTwoTwo = [];
-        // 第一列滚动第二列数据更新
-        for (
-          let i = 0, length = pickerValueArray[changeValue[0]].children.length;
-          i < length;
-          i++
-        ) {
-          pickerValueMulTwoTwo.push(
-            pickerValueArray[changeValue[0]].children[i]
-          );
-        }
-        // 第一级不等于第二级
+        // 处理第一列滚动
         if (changeValue[0] !== this.pickerValue[0]) {
-          // 第二列初始化为 1
+          let pickerValueMulTwoTwo = [];
+          // 第一列滚动第二列数据更新
+          for (
+            let i = 0,
+              length = pickerValueArray[changeValue[0]].children.length;
+            i < length;
+            i++
+          ) {
+            pickerValueMulTwoTwo.push(
+              pickerValueArray[changeValue[0]].children[i]
+            );
+          }
+          this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+          // 第二列初始化为 0
           changeValue[1] = 0;
         }
-        this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
         this.pickerValue = changeValue;
       } else if (this.deepLength === 3) {
         let pickerValueArray = this.pickerValueArray;
