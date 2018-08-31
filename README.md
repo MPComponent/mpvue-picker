@@ -6,6 +6,8 @@
 
 > 目前版本为 v2.0.1，v1.x.x 使用请[点击](./README_1.x.x.md)
 
+> citypicker 已支持，详情点击 [mpvue-citypicker](https://github.com/MPComponent/mpvue-citypicker)
+
 
 ![npm version](https://img.shields.io/npm/v/mpvue-picker.svg?style=flat)
 ![download](https://img.shields.io/npm/dm/mpvue-picker.svg?style=flat)
@@ -141,21 +143,21 @@ this.$refs.mpvuePicker.show();
 * 默认值：2
 
 ### onChange
-* 说明：picer 组件滚动时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件滚动时回调，返回选中的返回 label 和 value 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
 ### onConfirm
-* 说明：picer 组件点击确定时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件点击确定时回调，返回选中的返回 label 和 value 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
 ### onCancel
-* 说明：picer 组件点击取消时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件点击取消时回调，返回选中的返回 label 和 value 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
@@ -379,4 +381,3 @@ pickerValueArray:
 ## TODO
 
 * 增加日期选择 mode
-* 增加城市选择 mode
