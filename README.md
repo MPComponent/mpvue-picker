@@ -130,7 +130,7 @@ this.$refs.mpvuePicker.show();
 * 说明：picker 默认选中值 
 * 类型：Array
 * 可选值：-
-* 是否必填： 否 (当同一个组件使用多种 mode 来回切换使用是时 pickerValueDefault 必填)
+* 是否必填： 否 (当同一个组件使用多种 mode 来回切换使用时 pickerValueDefault 必填)
 * 默认值：[]
  
 ### deepLength
@@ -143,21 +143,21 @@ this.$refs.mpvuePicker.show();
 * 默认值：2
 
 ### onChange
-* 说明：picker 组件滚动时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件滚动时回调，返回选中的 label, value 和数组索引 index 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
 ### onConfirm
-* 说明：picker 组件点击确定时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件点击确定时回调，返回选中的 label, value 和数组索引 index 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否
 * 默认值：-
 
 ### onCancel
-* 说明：picker 组件点击取消时回调，返回选中的返回 label 和 value 的值
+* 说明：picker 组件点击取消时回调，返回选中的 label, value 和数组索引 index 的值
 * 类型：EventHandle
 * 可选值：-
 * 是否必填： 否

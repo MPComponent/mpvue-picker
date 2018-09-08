@@ -230,7 +230,7 @@ export default {
       this.showPicker = false;
       this._initPickerVale();
       let pickObj = {
-        inex: this.pickerValue,
+        index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
@@ -240,7 +240,7 @@ export default {
       this.showPicker = false;
       this._initPickerVale();
       let pickObj = {
-        inex: this.pickerValue,
+        index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
@@ -252,7 +252,7 @@ export default {
     pickerChange(e) {
       this.pickerValue = e.mp.detail.value;
       let pickObj = {
-        inex: this.pickerValue,
+        index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
@@ -308,7 +308,7 @@ export default {
         this.pickerValue = changeValue;
       }
       let pickObj = {
-        inex: this.pickerValue,
+        index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
