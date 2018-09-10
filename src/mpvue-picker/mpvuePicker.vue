@@ -436,6 +436,7 @@ export default {
 .picker-item {
   text-align: center;
   line-height: 40px;
+  font-size: 16px;
 }
 .mpvue-picker-view {
   position: relative;
