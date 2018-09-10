@@ -4,7 +4,7 @@
     <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':showPicker}">
       <div class="mpvue-picker__hd" catchtouchmove="true">
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
-        <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
+        <div class="mpvue-picker__action" :style="{color:themeColor}" @click="pickerConfirm">确定</div>
       </div>
       <!-- 单列 -->
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='selector' && pickerValueSingleArray.length > 0">
@@ -106,7 +106,9 @@ export default {
     deepLength: {
       type: Number,
       default: 2
-    }
+    },
+    /* 主题色 */
+    themeColor: String
   },
   watch: {
     pickerValueArray(oldVal, newVal) {
