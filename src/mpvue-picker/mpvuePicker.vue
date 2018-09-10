@@ -2,7 +2,7 @@
   <div class="mpvue-picker">
     <div :class="{'pickerMask':showPicker}" @click="maskClick" catchtouchmove="true"></div>
     <div class="mpvue-picker-content " :class="{'mpvue-picker-view-show':showPicker}">
-      <div class="mpvue-picker__hd">
+      <div class="mpvue-picker__hd" catchtouchmove="true">
         <div class="mpvue-picker__action" @click="pickerCancel">取消</div>
         <div class="mpvue-picker__action" @click="pickerConfirm">确定</div>
       </div>
