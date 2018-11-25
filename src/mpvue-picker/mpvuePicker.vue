@@ -91,16 +91,12 @@ export default {
     /* picker 数值 */
     pickerValueArray: {
       type: Array,
-      default() {
-          return []
-      }
+      default: () => []
     },
     /* 默认值 */
     pickerValueDefault: {
       type: Array,
-      default() {
-          return []
-      }
+      default: () => []
     },
     /* 几级联动 */
     deepLength: {
@@ -116,9 +112,6 @@ export default {
     },
     mode(oldVal, newVal) {
       this.modeChange = true;
-    },
-    pickerValueArray(val){
-      this.initPicker(val);
     }
   },
   methods: {
