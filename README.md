@@ -142,6 +142,12 @@ this.$refs.mpvuePicker.show();
 * 是否必填： 否
 * 默认值：2
 
+### themeColor
+* 说明：主题颜色
+* 类型：Color
+* 是否必填： 否
+* 默认值：#1aad19
+
 ### onChange
 * 说明：picker 组件滚动时回调，返回选中的 label, value 和数组索引 index 的值
 * 类型：EventHandle
