@@ -78,7 +78,8 @@ export default {
       pickerValueMulTwoTwo: [],
       pickerValueMulThreeOne: [],
       pickerValueMulThreeTwo: [],
-      pickerValueMulThreeThree: []
+      pickerValueMulThreeThree: [],
+      showPicker: false
     };
   },
   props: {
@@ -87,20 +88,19 @@ export default {
       type: String,
       default: 'selector'
     },
-    /* 是否显示控件 */
-    showPicker: {
-      type: Boolean,
-      default: false
-    },
     /* picker 数值 */
     pickerValueArray: {
       type: Array,
-      default: []
+      default() {
+          return []
+      }
     },
     /* 默认值 */
     pickerValueDefault: {
       type: Array,
-      default: []
+      default() {
+          return []
+      }
     },
     /* 几级联动 */
     deepLength: {
@@ -116,6 +116,9 @@ export default {
     },
     mode(oldVal, newVal) {
       this.modeChange = true;
+    },
+    pickerValueArray(val){
+      this.initPicker(val);
     }
   },
   methods: {
