@@ -1,7 +1,8 @@
 {
   "pages": [
     "pages/demo/main",
-    "pages/test/main"
+    "pages/test/main",
+    "pages/mpvue-city-picker/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

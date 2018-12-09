@@ -2,7 +2,7 @@
   <div class="mpvue-picer">
     <button @click="showPicker">test for mpvuePicker</button>
     <button @click="showSinglePicker">single mpvuePicker</button>
-    <mpvue-picker ref="mpvuePicker" :mode="mode" :pickerValueDefault="pickerValueDefault" :deepLength = "deepLength" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :mode="mode" :themeColor="themeColor" :pickerValueDefault="pickerValueDefault" :deepLength = "deepLength" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 
@@ -15,6 +15,7 @@ export default {
       pickerValueDefault: [],
       pickerValueArray: [],
       deepLength: 2,
+      themeColor: '',
       pickerSingleArray: [
         {
           label: '住宿费',
@@ -200,6 +201,7 @@ export default {
       this.pickerValueArray = this.mulLinkageThreePicker;
       this.deepLength = 3;
       this.pickerValueDefault = [1, 1, 1];
+      this.themeColor = '#3D8CF6';
       this.$refs.mpvuePicker.show();
       // TODO
     },
