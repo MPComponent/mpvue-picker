@@ -175,6 +175,7 @@
 				if (this.mode === 'selector') {
 					this.pickerValueSingleArray = valueArray;
 				} else if (this.mode === 'dateSelector') {
+					debugger;
 					//日期选择器
 					this.modeChange = false;
 					this.deepLength === 3;
@@ -183,26 +184,26 @@
 					let dayArray = [];
 					// 没有给默认值的情况
 					if (
-					(Object.prototype.toString.call(this.pickerValueDefault) == "[object Array]" 
-					&& this.pickerValueDefault.length > 0) 
-					||
-					(Object.prototype.toString.call(this.pickerValueDefault) !== "[object Date]")
+						(Object.prototype.toString.call(this.pickerValueDefault) == "[object Array]" &&
+							this.pickerValueDefault.length > 0) ||
+						(Object.prototype.toString.call(this.pickerValueDefault) !== "[object Date]")
 					) {
 						throw '默认值必须是日期类型!'
-					}
-					else if (Object.prototype.toString.call(this.pickerValueDefault) == "[object Array]" && this.pickerValueDefault.length == 0) {
+					} else if (Object.prototype.toString.call(this.pickerValueDefault) == "[object Array]" && this.pickerValueDefault.length ==
+						0) {
 						this.pickerValue = new Date();
 					}
-					
+
+					const startYear = 1900;
 					var now = new Date(this.pickerValue);
 					//年份范围: 1990 ~ 当前日期 + 100年
 					var lastYear = new Date().getFullYear() + 100;
-					if (now.getFullYear()> lastYear || now.getFullYear() < 1900)
-						throw '日期范围只能在 1990 ~ ' + lastYear + ' 之间';
+					if (now.getFullYear() > lastYear || now.getFullYear() < 1900)
+						throw '日期范围只能在 ' + startYear + ' ~ ' + lastYear + ' 之间';
 					let yearIndex, monthIndex, dayIndex;
-					for (let i = 1900; i <= lastYear; i++) {
+					for (let i = startYear; i <= lastYear; i++) {
 						if (i == now.getFullYear()) {
-							yearIndex = i - 1990;
+							yearIndex = i - startYear;
 						}
 						yearArray.push({
 							value: i,
@@ -229,7 +230,7 @@
 					}
 					this.pickerValueYear = yearArray;
 					this.pickerValueMonth = monthArray;
-					this.pickerValueDay = dayArray; 
+					this.pickerValueDay = dayArray;
 					this.pickerValue = [yearIndex, monthIndex, dayIndex];
 					//console.log(this.pickerValue)
 				} else if (this.mode === 'timeSelector') {
@@ -345,7 +346,7 @@
 					index: this.pickerValue,
 					value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
 					label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
-				};
+				}; 
 				this.$emit('onConfirm', pickObj);
 			},
 			showPickerView() {
