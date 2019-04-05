@@ -8,6 +8,7 @@
     <div class="page-bd">
       <button type="default" @click="showSinglePicker">单列选择</button>
       <button type="default" @click="showTimePicker">时间选择</button>
+      <button type="default" @click="showDatePicker">日期选择</button>
       <button type="default" @click="showMulPicker">多列选择</button>
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
@@ -231,6 +232,14 @@ export default {
       this.$refs.mpvuePicker.show();
       this.themeColor = '';
     },
+    // 日期选择
+    showDatePicker() {
+      this.pickerValueDefault = new Date('2019-04-05');
+      // this.pickerValueDefault = [2019, 4, 5];
+      this.mode = 'dateSelector';
+      this.themeColor = '#8D0177';
+      this.$refs.mpvuePicker.show();
+    },
     // 多列选择
     showMulPicker() {
       this.pickerValueArray = this.pickerMulArray;
@@ -263,6 +272,8 @@ export default {
     onConfirm(e) {
       console.log(e);
       if (this.mode === 'selector') {
+        this.pickerText = e.label;
+      } else if (this.mode === 'dateSelector') {
         this.pickerText = e.label;
       } else if (this.mode === 'timeSelector') {
         this.pickerText = e.label;
