@@ -4,7 +4,7 @@
 
 > 支持单列、多列以及级联
 
-> 目前版本为 v2.0.1，v1.x.x 使用请[点击](./README_1.x.x.md)
+> 目前版本为 2.0，1.0 使用请[点击](./README_1.x.x.md)
 
 > citypicker 已支持，详情点击 [mpvue-citypicker](https://github.com/MPComponent/mpvue-citypicker)
 
@@ -114,6 +114,7 @@ this.$refs.mpvuePicker.show();
 * 可选值：
     * selector（单列） 
     * timeSelector（时间选择）
+    * dateSelector (日期选择)
     * multiSelector（多列） 
     * multiLinkageSelector（级联）
 * 是否必填： 否
@@ -128,10 +129,11 @@ this.$refs.mpvuePicker.show();
 
 ### pickerValueDefault
 * 说明：picker 默认选中值 
-* 类型：Array
+* 类型：Array || Date （类型为 Date 仅限 mode 为 dateSelector 的情形）
 * 可选值：-
 * 是否必填： 否 (当同一个组件使用多种 mode 来回切换使用时 pickerValueDefault 必填)
 * 默认值：[]
+* 相关说明：如果 mode 为 dateSelector，默认值为当前日期，初始值支持 Date 对象或者数组，以 2019-4-5 为例，`new Date('2019-04-05')` 和 `[2019, 4, 5]` 均可以
  
 ### deepLength
 * 说明：几级联动
@@ -382,8 +384,3 @@ pickerValueArray:
 ## 版本日志
 
 [version logs](https://github.com/KuangPF/mpvue-picker/releases)
-
-
-## TODO
-
-* 增加日期选择 mode
