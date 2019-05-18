@@ -143,7 +143,9 @@ export default {
   methods: {
     initPicker(valueArray) {
       let pickerValueArray = valueArray;
-      this.pickerValue = this.pickerValueDefault;
+      setTimeout(() => {
+        this.pickerValue = this.pickerValueDefault;
+      });
       // 初始化多级联动
       if (this.mode === 'selector') {
         this.pickerValueSingleArray = valueArray;
