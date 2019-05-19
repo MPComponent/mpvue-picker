@@ -428,25 +428,31 @@ export default {
         value: pickerGetValue
       };
     },
+
     // 初始化 pickerValue 默认值
     _initPickerValue() {
+      let tempPickerValue;
       if (this.pickerValue.length === 0) {
         if (this.mode === 'selector') {
-          this.pickerValue = [0];
+          tempPickerValue = [0];
+        } else if (this.mode === 'dateSelector') {
+          tempPickerValue = this.getDefaultDateIndex();
         } else if (this.mode === 'multiSelector') {
-          this.pickerValue = new Int8Array(this.pickerValueArray.length);
-        } else if (
-          this.mode === 'multiLinkageSelector' &&
-          this.deepLength === 2
-        ) {
-          this.pickerValue = [0, 0];
-        } else if (
-          this.mode === 'multiLinkageSelector' &&
-          this.deepLength === 3
-        ) {
-          this.pickerValue = [0, 0, 0];
+          tempPickerValue = new Int8Array(this.pickerValueArray.length);
+        } else if ((this.mode === 'multiLinkageSelector' && this.deepLength === 2) || this.mode === 'timeSelector') {
+          tempPickerValue = [0, 0];
+        } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) {
+          tempPickerValue = [0, 0, 0];
+        }
+      } else {
+        // 单独处理 dateSelector 的初始值
+        if (this.mode === 'dateSelector') {
+          // TODO
+        } else {
+          tempPickerValue = this.pickerValueDefault;
         }
       }
+      return tempPickerValue;
     },
     getDaysList(year, month, value) {
       let dayLength = this.getDays(year, month);
@@ -466,6 +472,15 @@ export default {
       month = parseInt(month, 10);
       var date = new Date(year, month, 0);
       return date.getDate();
+    },
+
+    /* 计算默认日期的索引值 */
+    getDefaultDateIndex() {
+      let defaultDateIndex = []
+      defaultDateIndex.push(NOW_DATE.getFullYear() - MIN_DATE.getFullYear()); // 年
+      defaultDateIndex.push(NOW_DATE.getMonth()); // 月
+      defaultDateIndex.push(NOW_DATE.getDate() - 1); // 月
+      return defaultDateIndex;
     }
   }
 };

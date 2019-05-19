@@ -234,8 +234,8 @@ export default {
     },
     // 日期选择
     showDatePicker() {
-      this.pickerValueDefault = new Date('2019-04-05');
-      // this.pickerValueDefault = [2019, 4, 5];
+      // this.pickerValueDefault = new Date('2019-04-05');
+      this.pickerValueDefault = [2019, 4, 5];
       this.mode = 'dateSelector';
       this.themeColor = '#8D0177';
       this.$refs.mpvuePicker.show();
