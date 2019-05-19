@@ -146,10 +146,10 @@ export default {
       setTimeout(() => {
         this.pickerValue = this.pickerValueDefault;
       });
-      // 初始化多级联动
-      if (this.mode === 'selector') {
+      // 初始化选择器
+      if (this.mode === 'selector') { // 单列选择器
         this.pickerValueSingleArray = valueArray;
-      } else if (this.mode === 'dateSelector') {
+      } else if (this.mode === 'dateSelector') { // 日期选择器
         let year, month, day;
         // 支持传入 Date 对象
         if (Object.prototype.toString.call(this.pickerValue) === '[object Date]' && !isNaN(this.pickerValue.getTime())) {
@@ -182,7 +182,7 @@ export default {
         this.pickerValueMonth = monthList;
         this.pickerValueDay = dayList;
         this.pickerValue = value;
-      } else if (this.mode === 'timeSelector') {
+      } else if (this.mode === 'timeSelector') { // 时间选择器
         this.modeChange = false;
         let hourArray = [];
         let minuteArray = [];
@@ -200,9 +200,9 @@ export default {
         }
         this.pickerValueHour = hourArray;
         this.pickerValueMinute = minuteArray;
-      } else if (this.mode === 'multiSelector') {
+      } else if (this.mode === 'multiSelector') { // 多级联动
         this.pickerValueMulArray = valueArray;
-      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) {
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 二级联动
         // 两级联动
         let pickerValueMulTwoOne = [];
         let pickerValueMulTwoTwo = [];
@@ -224,10 +224,7 @@ export default {
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      } else if (
-        this.mode === 'multiLinkageSelector' &&
-        this.deepLength === 3
-      ) {
+      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) { // 三级联动
         let pickerValueMulThreeOne = [];
         let pickerValueMulThreeTwo = [];
         let pickerValueMulThreeThree = [];
@@ -275,7 +272,7 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
-      this._initPickerVale();
+      this._initPickerValue();
       let pickObj = {
         index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
@@ -285,7 +282,7 @@ export default {
     },
     pickerConfirm(e) {
       this.showPicker = false;
-      this._initPickerVale();
+      this._initPickerValue();
       let pickObj = {
         index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
@@ -432,7 +429,7 @@ export default {
       };
     },
     // 初始化 pickerValue 默认值
-    _initPickerVale() {
+    _initPickerValue() {
       if (this.pickerValue.length === 0) {
         if (this.mode === 'selector') {
           this.pickerValue = [0];
