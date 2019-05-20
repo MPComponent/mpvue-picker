@@ -1,16 +1,16 @@
-var path = require('path')
-var utils = require('./utils')
-var webpack = require('webpack')
-var config = require('../config')
-var merge = require('webpack-merge')
-var baseWebpackConfig = require('./webpack.base.conf')
-var UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-var CopyWebpackPlugin = require('copy-webpack-plugin')
+var path = require("path");
+var utils = require("./utils");
+var webpack = require("webpack");
+var config = require("../config");
+var merge = require("webpack-merge");
+var baseWebpackConfig = require("./webpack.base.conf");
+var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+var CopyWebpackPlugin = require("copy-webpack-plugin");
 // var HtmlWebpackPlugin = require('html-webpack-plugin')
-var ExtractTextPlugin = require('extract-text-webpack-plugin')
-var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var ExtractTextPlugin = require("extract-text-webpack-plugin");
+var OptimizeCSSPlugin = require("optimize-css-assets-webpack-plugin");
 
-var env = config.build.env
+var env = config.build.env;
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -19,18 +19,18 @@ var webpackConfig = merge(baseWebpackConfig, {
       extract: true
     })
   },
-  devtool: config.build.productionSourceMap ? '#source-map' : false,
+  devtool: config.build.productionSourceMap ? "#source-map" : false,
   output: {
     path: config.build.assetsRoot,
     // filename: utils.assetsPath('[name].[chunkhash].js'),
     // chunkFilename: utils.assetsPath('[id].[chunkhash].js')
-    filename: utils.assetsPath('[name].js'),
-    chunkFilename: utils.assetsPath('[id].js')
+    filename: utils.assetsPath("[name].js"),
+    chunkFilename: utils.assetsPath("[id].js")
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
-      'process.env': env
+      "process.env": env
     }),
     new UglifyJsPlugin({
       sourceMap: true
@@ -38,7 +38,7 @@ var webpackConfig = merge(baseWebpackConfig, {
     // extract css into its own file
     new ExtractTextPlugin({
       // filename: utils.assetsPath('[name].[contenthash].css')
-      filename: utils.assetsPath('[name].wxss')
+      filename: utils.assetsPath("[name].wxss")
     }),
     // Compress extracted CSS. We are using this plugin so that possible
     // duplicated CSS from different components can be deduped.
@@ -68,24 +68,25 @@ var webpackConfig = merge(baseWebpackConfig, {
     new webpack.HashedModuleIdsPlugin(),
     // split vendor js into its own file
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/vendor',
-      minChunks: function (module, count) {
+      name: "common/vendor",
+      minChunks: function(module, count) {
         // any required modules inside node_modules are extracted to vendor
         return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf('node_modules') >= 0
-        ) || count > 1
+          (module.resource &&
+            /\.js$/.test(module.resource) &&
+            module.resource.indexOf("node_modules") >= 0) ||
+          count > 1
+        );
       }
     }),
     // extract webpack runtime and module manifest to its own file in order to
     // prevent vendor hash from being updated whenever app bundle is updated
     new webpack.optimize.CommonsChunkPlugin({
-      name: 'common/manifest',
-      chunks: ['common/vendor']
+      name: "common/manifest",
+      chunks: ["common/vendor"]
     })
   ]
-})
+});
 
 // if (config.build.productionGzip) {
 //   var CompressionWebpackPlugin = require('compression-webpack-plugin')
@@ -106,8 +107,9 @@ var webpackConfig = merge(baseWebpackConfig, {
 // }
 
 if (config.build.bundleAnalyzerReport) {
-  var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
-  webpackConfig.plugins.push(new BundleAnalyzerPlugin())
+  var BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+    .BundleAnalyzerPlugin;
+  webpackConfig.plugins.push(new BundleAnalyzerPlugin());
 }
 
-module.exports = webpackConfig
+module.exports = webpackConfig;

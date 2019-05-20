@@ -1,8 +1,8 @@
-var utils = require('./utils')
-var config = require('../config')
+var utils = require("./utils");
+var config = require("../config");
 // var isProduction = process.env.NODE_ENV === 'production'
 // for mp
-var isProduction = true
+var isProduction = true;
 
 module.exports = {
   loaders: utils.cssLoaders({
@@ -12,9 +12,9 @@ module.exports = {
     extract: isProduction
   }),
   transformToRequire: {
-    video: 'src',
-    source: 'src',
-    img: 'src',
-    image: 'xlink:href'
+    video: "src",
+    source: "src",
+    img: "src",
+    image: "xlink:href"
   }
-}
+};
