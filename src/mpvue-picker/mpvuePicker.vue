@@ -77,9 +77,11 @@
 </template>
 
 <script>
+import { transformDateToIndex, getDatePickerIndex } from '../utils/index.js';
 /* 由于 getMonth 返回 0-11（1月-12月），因此在设置的时候 month-1 */
 const MIN_DATE = new Date(1900, 0, 1); // 最小支持日期 1990-01-01
 const MAX_DATE = new Date(2099, 11, 31); // 最大支持日期 20199-12-31
+/* eslint-disable-next-line */
 const NOW_DATE = new Date(); // 当前日期
 export default {
   data() {
@@ -143,45 +145,30 @@ export default {
   methods: {
     initPicker(valueArray) {
       let pickerValueArray = valueArray;
+      let initPickerValue = this._initPickerValue();
       setTimeout(() => {
-        this.pickerValue = this.pickerValueDefault;
+        this.pickerValue = initPickerValue;
       });
       // 初始化选择器
       if (this.mode === 'selector') { // 单列选择器
         this.pickerValueSingleArray = valueArray;
       } else if (this.mode === 'dateSelector') { // 日期选择器
-        let year, month, day;
-        // 支持传入 Date 对象
-        if (Object.prototype.toString.call(this.pickerValue) === '[object Date]' && !isNaN(this.pickerValue.getTime())) {
-          year = this.pickerValue.getFullYear();
-          month = this.pickerValue.getMonth();
-          day = this.pickerValue.getDate();
-        } else {
-          year = this.pickerValue.length > 0 ? this.pickerValue[0] : NOW_DATE.getFullYear();
-          month = this.pickerValue.length > 0 ? this.pickerValue[1] - 1 : NOW_DATE.getMonth();
-          day = this.pickerValue.length > 0 ? this.pickerValue[2] : NOW_DATE.getDate();
-        }
         let yearList = [];
         let monthList = [];
         let dayList = [];
-        let value = [];
         for (let i = MIN_DATE.getFullYear(); i <= MAX_DATE.getFullYear(); i++) {
-          if (i === year) { value.push(i - MIN_DATE.getFullYear()); }
           yearList.push({ label: i + '年', value: i });
         }
         for (let i = 0; i < 12; i++) {
-          if (i === month) { value.push(i); }
           monthList.push({ label: i + 1 + '月', value: i + 1 });
         }
-        let dayLength = this.getDays(year, month + 1);
+        let dayLength = this.getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
         for (let i = 0; i < dayLength; i++) {
-          if (i === day) { value.push(i - 1); }
           dayList.push({ label: i + 1 + '日', value: i + 1 });
         }
         this.pickerValueYear = yearList;
         this.pickerValueMonth = monthList;
         this.pickerValueDay = dayList;
-        this.pickerValue = value;
       } else if (this.mode === 'timeSelector') { // 时间选择器
         this.modeChange = false;
         let hourArray = [];
@@ -272,7 +259,6 @@ export default {
     },
     pickerCancel() {
       this.showPicker = false;
-      this._initPickerValue();
       let pickObj = {
         index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
@@ -282,7 +268,6 @@ export default {
     },
     pickerConfirm(e) {
       this.showPicker = false;
-      this._initPickerValue();
       let pickObj = {
         index: this.pickerValue,
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
@@ -432,11 +417,11 @@ export default {
     // 初始化 pickerValue 默认值
     _initPickerValue() {
       let tempPickerValue;
-      if (this.pickerValue.length === 0) {
+      if (this.pickerValueDefault.length === 0) {
         if (this.mode === 'selector') {
           tempPickerValue = [0];
         } else if (this.mode === 'dateSelector') {
-          tempPickerValue = this.getDefaultDateIndex();
+          tempPickerValue = transformDateToIndex();
         } else if (this.mode === 'multiSelector') {
           tempPickerValue = new Int8Array(this.pickerValueArray.length);
         } else if ((this.mode === 'multiLinkageSelector' && this.deepLength === 2) || this.mode === 'timeSelector') {
@@ -447,7 +432,7 @@ export default {
       } else {
         // 单独处理 dateSelector 的初始值
         if (this.mode === 'dateSelector') {
-          // TODO
+          tempPickerValue = getDatePickerIndex(this.pickerValueDefault);
         } else {
           tempPickerValue = this.pickerValueDefault;
         }
@@ -472,15 +457,6 @@ export default {
       month = parseInt(month, 10);
       var date = new Date(year, month, 0);
       return date.getDate();
-    },
-
-    /* 计算默认日期的索引值 */
-    getDefaultDateIndex() {
-      let defaultDateIndex = []
-      defaultDateIndex.push(NOW_DATE.getFullYear() - MIN_DATE.getFullYear()); // 年
-      defaultDateIndex.push(NOW_DATE.getMonth()); // 月
-      defaultDateIndex.push(NOW_DATE.getDate() - 1); // 月
-      return defaultDateIndex;
     }
   }
 };
