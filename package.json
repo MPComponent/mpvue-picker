@@ -1,6 +1,6 @@
 {
   "name": "mpvue-picker",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "基于 mpvue 框架的小程序选择控件",
   "main": "src/mpvue-picker/mpvuePicker.vue",
   "author": "kuangpengfei <1633397286@qq.com>",
@@ -53,7 +53,7 @@
     "html-webpack-plugin": "^3.2.0",
     "http-proxy-middleware": "^0.18.0",
     "mpvue-loader": "1.1.2",
-    "mpvue-picker": "^2.1.1",
+    "mpvue-picker": "^2.1.2",
     "mpvue-template-compiler": "1.0.18",
     "mpvue-webpack-target": "^1.0.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
