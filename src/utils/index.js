@@ -16,7 +16,7 @@ const getDatePickerIndex = pickerIndex => {
   if (Object.prototype.toString.call(pickerIndex) === "[object Date]" && !isNaN(pickerIndex.getTime())) {
     tempPickerIndex = transformDateToIndex(pickerIndex);
   } else {
-    tempPickerIndex = transformDateToIndex(new Date(`${pickerIndex[0]}-${pickerIndex[1]}-${pickerIndex[2]}`));
+    tempPickerIndex = transformDateToIndex(new Date(`${pickerIndex[0]}/${pickerIndex[1]}/${pickerIndex[2]}`));
   }
   return tempPickerIndex;
 };

@@ -18,8 +18,8 @@
 </template>
 
 <script>
-// import mpvuePicker from '@/mpvue-picker/mpvuePicker.vue';
-import mpvuePicker from 'mpvue-picker';
+import mpvuePicker from '@/mpvue-picker/mpvuePicker.vue';
+// import mpvuePicker from 'mpvue-picker';
 export default {
   components: {
     mpvuePicker
