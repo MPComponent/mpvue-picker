@@ -481,10 +481,12 @@ export default {
   transition: all 0.3s ease;
   transform: translateY(100%);
   z-index: 3000;
+  opacity: 0;
 }
 
 .mpvue-picker-view-show {
   transform: translateY(0);
+  opacity: 1;
 }
 
 .mpvue-picker__hd {
