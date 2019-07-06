@@ -20,4 +20,16 @@ const getDatePickerIndex = pickerIndex => {
   }
   return tempPickerIndex;
 };
-export { transformDateToIndex, getDatePickerIndex };
+
+/**
+ * 兼容 pickerValueArray 值
+ *
+ * @param {*} pickerValue 索引值
+ * @param {*} mode 模式值
+ * @param {*} pickerValueArray picker 数组
+ */
+const fixPickerValueDefault = (pickerValue, mode, pickerValueArray) => {
+  let fixPickerValue = pickerValue;
+  return fixPickerValue;
+};
+export { transformDateToIndex, getDatePickerIndex, fixPickerValueDefault };

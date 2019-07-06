@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import { transformDateToIndex, getDatePickerIndex } from '../utils/index.js';
+import { transformDateToIndex, getDatePickerIndex, fixPickerValueDefault } from '../utils/index.js';
 /* 由于 getMonth 返回 0-11（1月-12月），因此在设置的时候 month-1 */
 const MIN_DATE = new Date(1900, 0, 1); // 最小支持日期 1990-01-01
 const MAX_DATE = new Date(2099, 11, 31); // 最大支持日期 20199-12-31
@@ -144,89 +144,93 @@ export default {
   },
   methods: {
     initPicker(valueArray) {
-      let pickerValueArray = valueArray;
-      let initPickerValue = this._initPickerValue();
-      setTimeout(() => {
-        this.pickerValue = initPickerValue;
-      });
-      // 初始化选择器
-      if (this.mode === 'selector') { // 单列选择器
-        this.pickerValueSingleArray = valueArray;
-      } else if (this.mode === 'dateSelector') { // 日期选择器
-        let yearList = [];
-        let monthList = [];
-        let dayList = [];
-        for (let i = MIN_DATE.getFullYear(); i <= MAX_DATE.getFullYear(); i++) {
-          yearList.push({ label: i + '年', value: i });
+      try {
+        let pickerValueArray = valueArray;
+        let initPickerValue = this._initPickerValue();
+        setTimeout(() => {
+          this.pickerValue = initPickerValue;
+        });
+        // 初始化选择器
+        if (this.mode === 'selector') { // 单列选择器
+          this.pickerValueSingleArray = valueArray;
+        } else if (this.mode === 'dateSelector') { // 日期选择器
+          let yearList = [];
+          let monthList = [];
+          let dayList = [];
+          for (let i = MIN_DATE.getFullYear(); i <= MAX_DATE.getFullYear(); i++) {
+            yearList.push({ label: i + '年', value: i });
+          }
+          for (let i = 0; i < 12; i++) {
+            monthList.push({ label: i + 1 + '月', value: i + 1 });
+          }
+          let dayLength = this.getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
+          for (let i = 0; i < dayLength; i++) {
+            dayList.push({ label: i + 1 + '日', value: i + 1 });
+          }
+          this.pickerValueYear = yearList;
+          this.pickerValueMonth = monthList;
+          this.pickerValueDay = dayList;
+        } else if (this.mode === 'timeSelector') { // 时间选择器
+          this.modeChange = false;
+          let hourArray = [];
+          let minuteArray = [];
+          for (let i = 0; i < 24; i++) {
+            hourArray.push({
+              value: i,
+              label: i > 9 ? `${i} 时` : `0${i} 时`
+            });
+          }
+          for (let i = 0; i < 60; i++) {
+            minuteArray.push({
+              value: i,
+              label: i > 9 ? `${i} 分` : `0${i} 分`
+            });
+          }
+          this.pickerValueHour = hourArray;
+          this.pickerValueMinute = minuteArray;
+        } else if (this.mode === 'multiSelector') { // 多级联动
+          this.pickerValueMulArray = valueArray;
+        } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 二级联动
+          // 两级联动
+          let pickerValueMulTwoOne = [];
+          let pickerValueMulTwoTwo = [];
+          // 第一列
+          for (let i = 0, length = pickerValueArray.length; i < length; i++) {
+            pickerValueMulTwoOne.push(pickerValueArray[i]);
+          }
+          // 渲染第二列
+          let num = initPickerValue[0];
+          for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+            pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
+          }
+          this.pickerValueMulTwoOne = pickerValueMulTwoOne;
+          this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
+        } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) { // 三级联动
+          let pickerValueMulThreeOne = [];
+          let pickerValueMulThreeTwo = [];
+          let pickerValueMulThreeThree = [];
+          // 第一列
+          for (let i = 0, length = pickerValueArray.length; i < length; i++) {
+            pickerValueMulThreeOne.push(pickerValueArray[i]);
+          }
+          // 渲染第二列
+          let num = initPickerValue[0];
+          for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+            pickerValueMulThreeTwo.push(pickerValueArray[num].children[i]);
+          }
+          // 第三列
+          let numSecond = initPickerValue[1];
+          for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
+            pickerValueMulThreeThree.push(
+              pickerValueArray[num].children[numSecond].children[i]
+            );
+          }
+          this.pickerValueMulThreeOne = pickerValueMulThreeOne;
+          this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
+          this.pickerValueMulThreeThree = pickerValueMulThreeThree;
         }
-        for (let i = 0; i < 12; i++) {
-          monthList.push({ label: i + 1 + '月', value: i + 1 });
-        }
-        let dayLength = this.getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
-        for (let i = 0; i < dayLength; i++) {
-          dayList.push({ label: i + 1 + '日', value: i + 1 });
-        }
-        this.pickerValueYear = yearList;
-        this.pickerValueMonth = monthList;
-        this.pickerValueDay = dayList;
-      } else if (this.mode === 'timeSelector') { // 时间选择器
-        this.modeChange = false;
-        let hourArray = [];
-        let minuteArray = [];
-        for (let i = 0; i < 24; i++) {
-          hourArray.push({
-            value: i,
-            label: i > 9 ? `${i} 时` : `0${i} 时`
-          });
-        }
-        for (let i = 0; i < 60; i++) {
-          minuteArray.push({
-            value: i,
-            label: i > 9 ? `${i} 分` : `0${i} 分`
-          });
-        }
-        this.pickerValueHour = hourArray;
-        this.pickerValueMinute = minuteArray;
-      } else if (this.mode === 'multiSelector') { // 多级联动
-        this.pickerValueMulArray = valueArray;
-      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 2) { // 二级联动
-        // 两级联动
-        let pickerValueMulTwoOne = [];
-        let pickerValueMulTwoTwo = [];
-        // 第一列
-        for (let i = 0, length = pickerValueArray.length; i < length; i++) {
-          pickerValueMulTwoOne.push(pickerValueArray[i]);
-        }
-        // 渲染第二列
-        let num = initPickerValue[0];
-        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
-          pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
-        }
-        this.pickerValueMulTwoOne = pickerValueMulTwoOne;
-        this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
-      } else if (this.mode === 'multiLinkageSelector' && this.deepLength === 3) { // 三级联动
-        let pickerValueMulThreeOne = [];
-        let pickerValueMulThreeTwo = [];
-        let pickerValueMulThreeThree = [];
-        // 第一列
-        for (let i = 0, length = pickerValueArray.length; i < length; i++) {
-          pickerValueMulThreeOne.push(pickerValueArray[i]);
-        }
-        // 渲染第二列
-        let num = initPickerValue[0];
-        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
-          pickerValueMulThreeTwo.push(pickerValueArray[num].children[i]);
-        }
-        // 第三列
-        let numSecond = initPickerValue[1];
-        for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
-          pickerValueMulThreeThree.push(
-            pickerValueArray[num].children[numSecond].children[i]
-          );
-        }
-        this.pickerValueMulThreeOne = pickerValueMulThreeOne;
-        this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
-        this.pickerValueMulThreeThree = pickerValueMulThreeThree;
+      } catch (error) {
+        console.error(error);
       }
     },
     show() {
@@ -424,6 +428,8 @@ export default {
           tempPickerValue = this.pickerValueDefault;
         }
       }
+      // tempPickerValue 作兼容处理，防止因默认值设置不正确而出现 bug
+      tempPickerValue = fixPickerValueDefault(tempPickerValue, this.mode, this.pickerValueArray);
       return tempPickerValue;
     },
     getDaysList(year, month, value) {
