@@ -199,15 +199,9 @@ export default {
         }
         // 渲染第二列
         // 如果有设定的默认值
-        if (this.pickerValueDefault.length === 2) {
-          let num = this.pickerValueDefault[0];
-          for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
-            pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
-          }
-        } else {
-          for (let i = 0, length = pickerValueArray[0].children.length; i < length; i++) {
-            pickerValueMulTwoTwo.push(pickerValueArray[0].children[i]);
-          }
+        let num = initPickerValue[0];
+        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+          pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
         }
         this.pickerValueMulTwoOne = pickerValueMulTwoOne;
         this.pickerValueMulTwoTwo = pickerValueMulTwoTwo;
@@ -220,22 +214,16 @@ export default {
           pickerValueMulThreeOne.push(pickerValueArray[i]);
         }
         // 渲染第二列
-        this.pickerValueDefault =
-          this.pickerValueDefault.length === 3 ? this.pickerValueDefault : [0, 0, 0];
-        if (this.pickerValueDefault.length === 3) {
-          let num = this.pickerValueDefault[0];
-          for (
-            let i = 0, length = pickerValueArray[num].children.length; i < length; i++
-          ) {
-            pickerValueMulThreeTwo.push(pickerValueArray[num].children[i]);
-          }
-          // 第三列
-          let numSecond = this.pickerValueDefault[1];
-          for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
-            pickerValueMulThreeThree.push(
-              pickerValueArray[num].children[numSecond].children[i]
-            );
-          }
+        let num = initPickerValue[0];
+        for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
+          pickerValueMulThreeTwo.push(pickerValueArray[num].children[i]);
+        }
+        // 第三列
+        let numSecond = initPickerValue[1];
+        for (let i = 0, length = pickerValueArray[num].children[numSecond].children.length; i < length; i++) {
+          pickerValueMulThreeThree.push(
+            pickerValueArray[num].children[numSecond].children[i]
+          );
         }
         this.pickerValueMulThreeOne = pickerValueMulThreeOne;
         this.pickerValueMulThreeTwo = pickerValueMulThreeTwo;
