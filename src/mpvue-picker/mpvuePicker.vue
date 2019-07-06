@@ -198,7 +198,6 @@ export default {
           pickerValueMulTwoOne.push(pickerValueArray[i]);
         }
         // 渲染第二列
-        // 如果有设定的默认值
         let num = initPickerValue[0];
         for (let i = 0, length = pickerValueArray[num].children.length; i < length; i++) {
           pickerValueMulTwoTwo.push(pickerValueArray[num].children[i]);
