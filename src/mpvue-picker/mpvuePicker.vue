@@ -77,10 +77,10 @@
 </template>
 
 <script>
-import { transformDateToIndex, getDatePickerIndex, fixPickerValueDefault } from '../utils/index.js';
+import { transformDateToIndex, getDatePickerIndex, getDays, fixPickerValueDefault } from '../utils/index.js';
 /* 由于 getMonth 返回 0-11（1月-12月），因此在设置的时候 month-1 */
 const MIN_DATE = new Date(1900, 0, 1); // 最小支持日期 1990-01-01
-const MAX_DATE = new Date(2099, 11, 31); // 最大支持日期 20199-12-31
+const MAX_DATE = new Date(2099, 11, 31); // 最大支持日期 2099-12-31
 /* eslint-disable-next-line */
 const NOW_DATE = new Date(); // 当前日期
 export default {
@@ -163,7 +163,7 @@ export default {
           for (let i = 0; i < 12; i++) {
             monthList.push({ label: i + 1 + '月', value: i + 1 });
           }
-          let dayLength = this.getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
+          let dayLength = getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
           for (let i = 0; i < dayLength; i++) {
             dayList.push({ label: i + 1 + '日', value: i + 1 });
           }
@@ -373,7 +373,7 @@ export default {
       } else if (mode === 'timeSelector') {
         pickerLable = `${this.pickerValueHour[value[0]].label}-${this.pickerValueMinute[value[1]].label}`;
         pickerGetValue.push(this.pickerValueHour[value[0]].value);
-        pickerGetValue.push(this.pickerValueHour[value[1]].value);
+        pickerGetValue.push(this.pickerValueMinute[value[1]].value);
       } else if (mode === 'multiSelector') {
         for (let i = 0; i < value.length; i++) {
           if (i > 0) {
@@ -433,7 +433,7 @@ export default {
       return tempPickerValue;
     },
     getDaysList(year, month, value) {
-      let dayLength = this.getDays(year, month);
+      let dayLength = getDays(year, month);
       value[2] = dayLength < this.pickerValueDay.length && this.pickerValue[2] > dayLength - 1 ? dayLength - 1 : this.pickerValue[2];
       if (dayLength !== this.pickerValueDay.length) {
         let dayList = [];
@@ -443,13 +443,6 @@ export default {
         this.pickerValueDay = dayList;
       }
       this.pickerValue = value;
-    },
-    /* 计算一个月多少天 （ month 传正常的月份数，不用 -1） */
-    getDays(year, month) {
-      if (month > 12 || month < 0) { return -1; }
-      month = parseInt(month, 10);
-      var date = new Date(year, month, 0);
-      return date.getDate();
     }
   }
 };
