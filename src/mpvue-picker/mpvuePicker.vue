@@ -43,7 +43,7 @@
       <picker-view indicator-style="height: 40px;" class="mpvue-picker-view" :value="pickerValue" @change="pickerChange" v-if="mode==='multiSelector'">
         <block v-for="(n,index) in pickerValueMulArray.length" :key="index">
           <picker-view-column>
-            <view class="picker-item" v-for="(item,index1) in pickerValueMulArray[n]" :key="index1">{{item.label}}</view>
+            <view class="picker-item" v-for="(item,index1) in pickerValueMulArray[index]" :key="index1">{{item.label}}</view>
           </picker-view-column>
         </block>
       </picker-view>
