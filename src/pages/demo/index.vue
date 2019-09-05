@@ -121,7 +121,7 @@ export default {
       mulLinkageThreePicker: [
         {
           label: 'phone',
-          value: 0,
+          value: 1,
           children: [
             {
               label: 'iphone',
@@ -143,7 +143,7 @@ export default {
             },
             {
               label: 'android',
-              value: 1,
+              value: 2,
               children: [
                 {
                   label: 'vivo',
@@ -163,7 +163,7 @@ export default {
         },
         {
           label: 'PC',
-          value: 0,
+          value: 2,
           children: [
             {
               label: 'mac',
@@ -189,7 +189,7 @@ export default {
             },
             {
               label: 'windows',
-              value: 1,
+              value: 2,
               children: [
                 {
                   label: 'dell',
