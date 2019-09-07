@@ -17,7 +17,8 @@
     "dev": "node build/dev-server.js",
     "start": "node build/dev-server.js",
     "build": "rimraf dist && node build/build.js",
-    "lint": "eslint --ext .js,.vue src"
+    "lint": "eslint --ext .js,.vue src",
+    "release": "sh ./release.sh"
   },
   "dependencies": {},
   "devDependencies": {
