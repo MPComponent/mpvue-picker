@@ -225,7 +225,7 @@ export default {
     startDate: {
       type: Date,
       default() {
-        return new Date()
+        return new Date(MIN_DATE)
       }
     },
     /* 最大时间 */
