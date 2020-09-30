@@ -187,7 +187,11 @@ export default {
       pickerValueMulThreeTwo: [],
       pickerValueMulThreeThree: [],
       /* 是否显示控件 */
-      showPicker: false
+      showPicker: false,
+
+      // 日期选择器的时候的大小默认值
+      minDateIndex: [],
+      maxDateIndex: [],
     };
   },
   props: {
@@ -216,7 +220,21 @@ export default {
       default: 2
     },
     /* 主题色 */
-    themeColor: String
+    themeColor: String,
+    /* 最小时间 */
+    startDate: {
+      type: Date,
+      default() {
+        return new Date()
+      }
+    },
+    /* 最大时间 */
+    endDate: {
+      type: Date,
+      default() {
+        return new Date(MAX_DATE)
+      }
+    }
   },
   watch: {
     pickerValueArray(oldVal, newVal) {
@@ -243,14 +261,28 @@ export default {
           let dayList = [];
           for (let i = MIN_DATE.getFullYear(); i <= MAX_DATE.getFullYear(); i++) {
             yearList.push({ label: i + '年', value: i });
+
+            if (i == this.startDate.getFullYear()) {
+              this.minDateIndex.push(yearList.length - 1);
+            }
+
+            if (i == this.endDate.getFullYear()) {
+              this.maxDateIndex.push(yearList.length - 1);
+            }
           }
           for (let i = 0; i < 12; i++) {
             monthList.push({ label: i + 1 + '月', value: i + 1 });
           }
+          this.minDateIndex.push(this.startDate.getMonth());
+          this.maxDateIndex.push(this.endDate.getMonth());
+
           let dayLength = getDays(MIN_DATE.getFullYear() + initPickerValue[0], initPickerValue[1] + 1);
           for (let i = 0; i < dayLength; i++) {
             dayList.push({ label: i + 1 + '日', value: i + 1 });
           }
+          this.minDateIndex.push(this.startDate.getDate() - 1);
+          this.maxDateIndex.push(this.endDate.getDate() - 1);
+
           this.pickerValueYear = yearList;
           this.pickerValueMonth = monthList;
           this.pickerValueDay = dayList;
@@ -382,6 +414,19 @@ export default {
         value: this._getPickerLabelAndValue(this.pickerValue, this.mode).value,
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
+
+      if (this.mode == 'dateSelector') {
+        let date = new Date(pickObj.value[0], (pickObj.value[1] - 1), pickObj.value[2])
+        
+        if (date.getTime() < this.startDate.getTime()) {
+          this.pickerValue = this.minDateIndex
+        }
+
+        if (date.getTime() > this.endDate.getTime()) {
+          this.pickerValue = this.maxDateIndex
+        }
+      }
+
       this.$emit('onChange', pickObj);
     },
     pickerChangeMul(e) {
@@ -498,7 +543,7 @@ export default {
         if (this.mode === 'selector') {
           tempPickerValue = [0];
         } else if (this.mode === 'dateSelector') {
-          tempPickerValue = transformDateToIndex();
+          tempPickerValue = transformDateToIndex(this.startDate);
         } else if (this.mode === 'multiSelector') {
           tempPickerValue = new Int8Array(this.pickerValueArray.length);
         } else if ((this.mode === 'multiLinkageSelector' && this.deepLength === 2) || this.mode === 'timeSelector') {
