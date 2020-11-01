@@ -13,7 +13,7 @@
       <button type="default" @click="showMulLinkageTwoPicker">二级联动选择</button>
       <button type="default" @click="showMulLinkageThreePicker">三级联动选择</button>
     </div>
-    <mpvue-picker ref="mpvuePicker" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault" :themeColor="themeColor" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
+    <mpvue-picker ref="mpvuePicker" :startDate="new Date('2000-01-01')" :endDate="new Date('2001-01-01')" :mode="mode" :deepLength="deepLength" :pickerValueDefault="pickerValueDefault" :themeColor="themeColor" @onChange="onChange" @onConfirm="onConfirm" @onCancel="onCancel" :pickerValueArray="pickerValueArray"></mpvue-picker>
   </div>
 </template>
 

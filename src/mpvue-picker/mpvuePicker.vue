@@ -191,7 +191,7 @@ export default {
 
       // 日期选择器的时候的大小默认值
       minDateIndex: [],
-      maxDateIndex: [],
+      maxDateIndex: []
     };
   },
   props: {
@@ -262,11 +262,11 @@ export default {
           for (let i = MIN_DATE.getFullYear(); i <= MAX_DATE.getFullYear(); i++) {
             yearList.push({ label: i + '年', value: i });
 
-            if (i == this.startDate.getFullYear()) {
+            if (i === this.startDate.getFullYear()) {
               this.minDateIndex.push(yearList.length - 1);
             }
 
-            if (i == this.endDate.getFullYear()) {
+            if (i === this.endDate.getFullYear()) {
               this.maxDateIndex.push(yearList.length - 1);
             }
           }
@@ -415,9 +415,9 @@ export default {
         label: this._getPickerLabelAndValue(this.pickerValue, this.mode).label
       };
 
-      if (this.mode == 'dateSelector') {
+      if (this.mode === 'dateSelector') {
         let date = new Date(pickObj.value[0], (pickObj.value[1] - 1), pickObj.value[2])
-        
+
         if (date.getTime() < this.startDate.getTime()) {
           this.pickerValue = this.minDateIndex
         }
