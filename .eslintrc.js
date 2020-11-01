@@ -23,7 +23,8 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     semi: ['error', 'always'],
     'func-call-spacing': 'off',
-    'space-before-function-paren': 'off'
+    'space-before-function-paren': 'off',
+    'semi':'off'
   },
   globals: {
     App: true,
